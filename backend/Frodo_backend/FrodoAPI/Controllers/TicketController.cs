@@ -46,8 +46,6 @@ namespace FrodoAPI.Controllers
         [HttpGet("SetupDemo")]
         public Guid SetupDemoJourney()
         {
-            
-
             return _journeyRepository.AddJourney(new Journey
             {
                 Stages = new List<JourneyStage>()

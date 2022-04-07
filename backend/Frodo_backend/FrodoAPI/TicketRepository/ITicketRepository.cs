@@ -41,7 +41,8 @@ namespace FrodoAPI.TicketRepository
             return new ValidateableTicket
             {
                 TicketId = currentTicket.Id,
-                BarcodeData = currentTicket.Product + currentTicket.Price
+                BarcodeData = currentTicket.Product + currentTicket.Price,
+                StartingTime = currentTicket.Stage.StartingTime
             };
         }
 
@@ -60,7 +61,8 @@ namespace FrodoAPI.TicketRepository
             return new ValidateableTicket
             {
                 TicketId = currentTicket.Id,
-                BarcodeData = currentTicket.Product + currentTicket.Price
+                BarcodeData = currentTicket.Product + currentTicket.Price,
+                StartingTime = currentTicket.Stage.StartingTime
             };
         }
 
@@ -71,11 +73,13 @@ namespace FrodoAPI.TicketRepository
             if (journey == null || !journey.Sold)
                 yield break;
             
-            foreach (var journeyTicket in journey.Tickets)
+            foreach (var currentTicket in journey.Tickets)
             {
                 yield return new ValidateableTicket
                 {
-                    BarcodeData = journeyTicket.Product + journeyTicket.Price
+                    TicketId = currentTicket.Id,
+                    BarcodeData = currentTicket.Product + currentTicket.Price,
+                    StartingTime = currentTicket.Stage.StartingTime
                 };
             }
         }
