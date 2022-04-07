@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import Map from './components/Map';
 import PlanTrip from './components/PlanTrip';
 import Navigation from "./components/Navigation";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
@@ -11,7 +12,7 @@ ReactDOM.render(
   <Router>
     <Navigation/>
     <Routes>
-      <Route path="/" element={<App/>} />
+      <Route path="/" element={<Map/>} />
       <Route path="/planTrip" element={<PlanTrip/>} />
     </Routes>
   </Router>,

@@ -52,8 +52,16 @@ function JourneyLocationMarker(props) {
     },
   })
 
+  const startIcon = new L.Icon({
+    iconUrl: '/marker-icon-green.png',
+  })
+  const endIcon = new L.Icon({
+    iconUrl: '/marker-icon-red.png',
+  })
+  
+
   return props.position === null ? null : (
-    <Marker position={props.position}>
+    <Marker position={props.position} icon={props.start ? startIcon : endIcon}>
       <Popup>You are here</Popup>
     </Marker>
   )
@@ -99,10 +107,12 @@ class MyMapComponent extends React.Component {
         <JourneyLocationMarker 
           onClickInternal={this.state.currentMarkerIsStart ? (e) => this.handleClick(e) : () => console.log('start is ignored')} 
           position={this.state.startMarkerLocation}
+          start={true}
           />
         <JourneyLocationMarker 
           onClickInternal={this.state.currentMarkerIsStart ? () => console.log('end is ignored') : (e) => this.handleClick(e)} 
           position={this.state.endMarkerLocation}
+          start={false}
         />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

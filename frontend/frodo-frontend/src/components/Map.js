@@ -1,5 +1,5 @@
 import 'leaflet/dist/leaflet.css';
-import './App.css'
+import '../App.css'
 import React, { useState } from 'react'
 import {
   MapContainer,
@@ -42,7 +42,7 @@ function LocationMarker(props) {
   )
 }
 
-function FromLocationMarker(props) {
+function JourneyLocationMarker(props) {
 
   const [position, setPosition] = useState(null)
   const map = useMapEvents({
@@ -52,14 +52,22 @@ function FromLocationMarker(props) {
     },
   })
 
+  const startIcon = new L.Icon({
+    iconUrl: '/marker-icon-green.png',
+  })
+  const endIcon = new L.Icon({
+    iconUrl: '/marker-icon-red.png',
+  })
+  
+
   return props.position === null ? null : (
-    <Marker position={props.position}>
+    <Marker position={props.position} icon={props.start ? startIcon : endIcon}>
       <Popup>You are here</Popup>
     </Marker>
   )
 }
 
-class MyMapComponent extends React.Component {
+class MapComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -77,13 +85,12 @@ class MyMapComponent extends React.Component {
     console.log('currentIsStart ' + this.state.currentMarkerIsStart )
     if (this.state.currentMarkerIsStart) {
       this.setState({startMarkerLocation: e})
+      this.props.onStartSelected(e)
     } else {
       this.setState({endMarkerLocation: e})
+      this.props.onEndSelected(e)
     }
     this.setState({currentMarkerIsStart: !this.state.currentMarkerIsStart})
-
-    
-
   }
 
   handleLocationDone() {
@@ -93,16 +100,18 @@ class MyMapComponent extends React.Component {
   render() {
 
     return (
-      <MapContainer center={{ lat: 51.505, lng: -0.09 }} zoom={13} style={{ height: "100vh" }}   id="mapContainer">
+      <MapContainer center={{ lat: 51.505, lng: -0.09 }} zoom={13} style={{ height: "70vh" }}   id="mapContainer">
 
         <LocationMarker onDone={() => this.handleLocationDone()} locationDone={this.state.locationDone}/>
-        <FromLocationMarker 
+        <JourneyLocationMarker 
           onClickInternal={this.state.currentMarkerIsStart ? (e) => this.handleClick(e) : () => console.log('start is ignored')} 
           position={this.state.startMarkerLocation}
+          start={true}
           />
-        <FromLocationMarker 
+        <JourneyLocationMarker 
           onClickInternal={this.state.currentMarkerIsStart ? () => console.log('end is ignored') : (e) => this.handleClick(e)} 
           position={this.state.endMarkerLocation}
+          start={false}
         />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -113,12 +122,4 @@ class MyMapComponent extends React.Component {
   }
 }
 
-
-function Map() {
-  return (
-
-    <MyMapComponent/>
-  )
-}
-
-export default Map;
+export default MapComponent;
