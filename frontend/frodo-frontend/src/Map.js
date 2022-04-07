@@ -42,7 +42,7 @@ function LocationMarker(props) {
   )
 }
 
-function JourneyLocationMarker(props) {
+function FromLocationMarker(props) {
 
   const [position, setPosition] = useState(null)
   const map = useMapEvents({
@@ -96,11 +96,11 @@ class MyMapComponent extends React.Component {
       <MapContainer center={{ lat: 51.505, lng: -0.09 }} zoom={13} style={{ height: "100vh" }}   id="mapContainer">
 
         <LocationMarker onDone={() => this.handleLocationDone()} locationDone={this.state.locationDone}/>
-        <JourneyLocationMarker 
+        <FromLocationMarker 
           onClickInternal={this.state.currentMarkerIsStart ? (e) => this.handleClick(e) : () => console.log('start is ignored')} 
           position={this.state.startMarkerLocation}
           />
-        <JourneyLocationMarker 
+        <FromLocationMarker 
           onClickInternal={this.state.currentMarkerIsStart ? () => console.log('end is ignored') : (e) => this.handleClick(e)} 
           position={this.state.endMarkerLocation}
         />
@@ -114,11 +114,11 @@ class MyMapComponent extends React.Component {
 }
 
 
-function App() {
+function Map() {
   return (
 
     <MyMapComponent/>
   )
 }
 
-export default App;
+export default Map;
