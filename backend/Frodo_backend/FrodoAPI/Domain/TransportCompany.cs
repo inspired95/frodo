@@ -8,13 +8,14 @@ namespace FrodoAPI.Domain
         private readonly CanGetFromToFun _canGetFromTo;
         private readonly CostFromToFun _costFun;
         private readonly GetTicketFun _getTicketFun;
-        public string Name;
         public bool IsTaxi;
         public List<Station> ServedStations;
         public delegate bool CanGetFromToFun(JourneyPoint from, JourneyPoint to);
         public delegate double CostFromToFun(JourneyPoint from, JourneyPoint to);
 
         public delegate Ticket GetTicketFun(JourneyPoint from, JourneyPoint to, string Passenger);
+
+        public string Name { get; set; }
 
         public Guid Id { get; set; }
 
