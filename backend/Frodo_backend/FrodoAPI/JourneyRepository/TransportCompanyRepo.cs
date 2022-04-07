@@ -19,14 +19,21 @@
             public TransportCompanyRepo()
             {
                 _uber = new TransportCompany(
-                    canGetFromTo: (from, to) => { return true; },
-                    costFun: (from, to) => { return from.GetCoordinate().DistanceTo(to.GetCoordinate()) * 50.0; },
+                    canGetFromTo: (from, to) =>
+                    {
+                        return true;
+                    },
+                    costFun: (from, to) =>
+                    {
+                        return from.GetCoordinate().DistanceTo(to.GetCoordinate()) * 50.0;
+                    },
                     getTicketFun: (from, to, passenger) =>
                     {
                         return new Ticket()
                         {
 
                             Id = Guid.NewGuid(),
+                            Price = 10,
                             Product = $"Happy Hour {from.GetName()}",
                             Stage = new JourneyStage
                             {
@@ -34,8 +41,9 @@
                                 To = to,
                             }
                         };
+
                     }
-                )
+                    )
                 {
                     Id = Guid.Parse("BC262847-27DD-45A8-AE6F-F879BD3D48CA"),
                     Name = "Uber",

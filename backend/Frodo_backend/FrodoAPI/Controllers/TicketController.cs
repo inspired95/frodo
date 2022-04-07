@@ -82,9 +82,9 @@ namespace FrodoAPI.Controllers
         }
 
         [HttpGet("Buy")]
-        public void BuyTickets(Guid journeyId)
+        public void BuyTickets(Guid bundleId)
         {
-            _ticketRepository.Persist(journeyId);
+            _ticketRepository.Persist(bundleId);
         }
 
 
