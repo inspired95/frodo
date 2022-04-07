@@ -36,8 +36,10 @@ namespace FrodoAPI.Controllers
             _logger.LogCritical($"Get {request}");
             var journey1 = CreateRandomJourney(request);
             _journeyRepository.AddJourney(journey1);
+   
             var journey2 = CreateRandomJourney(request);
             _journeyRepository.AddJourney(journey2);
+
             return new List<Journey>()
                 {journey1, journey2};
         }
