@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -13,7 +14,7 @@ using QRCoder;
 namespace FrodoAPI.Controllers
 {
     [ApiController]
-    [Route("TicketController")]
+    [Route("api/[controller]")]
     public class TicketController : Controller
     {
         private readonly ITicketProvider _ticketProvider;
@@ -41,6 +42,19 @@ namespace FrodoAPI.Controllers
             public Ticket[] Tickets { get; set; }
         }
 
+        [HttpGet("SetupDemo")]
+        public Guid SetupDemoJourney()
+        {
+            return _journeyRepository.AddJourney(new Journey
+            {
+                Stages = new List<JourneyStage>()
+                {
+                    new JourneyStage {From = new GeoPoint(), To = new GeoPoint(), TransportCompanyId = 1},
+                    new JourneyStage {From = new GeoPoint(), To = new GeoPoint(), TransportCompanyId = 2},
+                }
+            });
+        }
+
 
         [HttpGet("PossibleTickets")]
         public TicketResult GetPossibleTickets(Guid userId, Guid journeyId)
@@ -63,14 +77,14 @@ namespace FrodoAPI.Controllers
             };
         }
 
-        [HttpPost("Buy")]
+        [HttpGet("Buy")]
         public void BuyTickets(Guid bundleId)
         {
             _ticketRepository.Persist(bundleId);
         }
 
 
-        [HttpPost("CurrentTicket")]
+        [HttpGet("CurrentTicket")]
         public ValidateableTicket GetCurrentTicket(Guid journeyId)
         {
             return _ticketRepository.GetForCurrentStage(journeyId, DateTime.Now);

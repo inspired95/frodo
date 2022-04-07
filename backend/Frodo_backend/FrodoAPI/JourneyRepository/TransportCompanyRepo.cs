@@ -24,13 +24,13 @@
                         return new Ticket()
                         {
 
-                            Id = new Guid(),
+                            Id = Guid.NewGuid(),
 
                         };
                     }                   
                     )
                 {
-                    Id = new Guid(),
+                    Id = Guid.NewGuid(),
                     Name = "Uber",
                     IsTaxi = true,
                     ServedStations = new List<Station>(),

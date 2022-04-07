@@ -19,7 +19,7 @@ namespace FrodoAPI.UserRepository
 
         public Guid AddUser(string firstName, string lastName)
         {
-            var id = new Guid();
+            var id = Guid.NewGuid();
             _users.Add(id, Tuple.Create(firstName, lastName));
 
             return id;

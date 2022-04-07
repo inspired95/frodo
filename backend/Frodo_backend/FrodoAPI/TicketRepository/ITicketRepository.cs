@@ -14,24 +14,6 @@ namespace FrodoAPI.TicketRepository
         void Persist(Guid	 bundleId);
     }
 
-    public interface ITicketProvider
-    {
-        Ticket GetTicketForStage(JourneyStage stage);
-    }
-
-    public class DummyTicketProvider : ITicketProvider
-    {
-        public Ticket GetTicketForStage(JourneyStage stage)
-        {
-            return new Ticket
-            {
-                Price = 10,
-                Product = $"Happy Hour {stage.From}",
-                Stage = stage
-            };
-        }
-    }
-
     public class DummyTicketRepository : ITicketRepository
     {
         private class TicketBundle
@@ -47,7 +29,7 @@ namespace FrodoAPI.TicketRepository
         {
             var journey = _bundles.Values.FirstOrDefault(b => b.JourneyId == journeyId);
 
-            if (journey == null)
+            if (journey == null || !journey.Sold)
                 return null;
 
             var currentTicket = journey.Tickets.FirstOrDefault(t => t.Stage.StartingTime < currentTime && currentTime.Subtract(t.Stage.StartingTime) < t.Stage.TravelTime);
@@ -60,7 +42,7 @@ namespace FrodoAPI.TicketRepository
 
         public Guid Add( in Guid journeyGuid, Ticket[] results)
         {
-            var id = new Guid();
+            var id = Guid.NewGuid();
             
             _bundles.Add	(id, new TicketBundle
             {
