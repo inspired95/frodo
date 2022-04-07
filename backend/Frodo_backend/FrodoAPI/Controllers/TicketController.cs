@@ -54,8 +54,8 @@ namespace FrodoAPI.Controllers
             {
                 Stages = new List<JourneyStage>()
                 {
-                    new JourneyStage {From = allStations[0], To = allStations[1], TransportCompanyId = _transportCompanyRepo.GetAll().First().Id, StartingTime = DateTime.Now, TravelTime = TimeSpan.FromMinutes(1)},
-                    new JourneyStage {From = allStations[1], To = allStations[2], TransportCompanyId = _transportCompanyRepo.GetAll().Last().Id, StartingTime = DateTime.Now.AddMinutes(1), TravelTime = TimeSpan.FromMinutes(2)},
+                    new JourneyStage {From = new JourneyPoint(allStations[0]), To = new JourneyPoint(allStations[1]), TransportCompanyId = _transportCompanyRepo.GetAll().First().Id, StartingTime = DateTime.Now, TravelTime = TimeSpan.FromMinutes(1)},
+                    new JourneyStage {From = new JourneyPoint(allStations[1]), To = new JourneyPoint(allStations[2]), TransportCompanyId = _transportCompanyRepo.GetAll().Last().Id, StartingTime = DateTime.Now.AddMinutes(1), TravelTime = TimeSpan.FromMinutes(2)},
                 }
             });
         }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using FrodoAPI.Contract;
 using FrodoAPI.Domain;
 using FrodoAPI.JourneyRepository;
@@ -18,12 +19,14 @@ namespace FrodoAPI.Controllers
         private readonly ILogger<JourneyPlannerController> _logger;
         private readonly IJourneyRepository _journeyRepository;
         private readonly IStationRepository _stationRepository;
+        private readonly ITransportCompanyRepo _transportCompanyRepo;
 
-        public JourneyPlannerController(ILogger<JourneyPlannerController> logger, IStationRepository stationRepository, IJourneyRepository journeyRepository)
+        public JourneyPlannerController(ILogger<JourneyPlannerController> logger, IStationRepository stationRepository, IJourneyRepository journeyRepository, ITransportCompanyRepo transportCompanyRepo)
         {
             _logger = logger;
             _stationRepository = stationRepository;
             _journeyRepository = journeyRepository;
+            _transportCompanyRepo = transportCompanyRepo;
         }
 
         // GET: api/<StationsController>
@@ -60,10 +63,10 @@ namespace FrodoAPI.Controllers
                 {
                     new JourneyStage()
                     {
-                        From = new GeoPoint() { Coordinates = request.StartingPoint },
+                        From = new JourneyPoint() { Coordinates = request.StartingPoint },
                         MeanOfTransportation = "Uber",
                         StartingTime = request.StartingDate,
-                        TransportCompanyId = 1,
+                        TransportCompanyId = Guid.Parse("BC262847-27DD-45A8-AE6F-F879BD3D48CA"),
                         To = new JourneyPoint(stops[index1]),
                         TravelTime = traveltime1,
                         WaitingTime = TimeSpan.FromMinutes(5),
@@ -75,7 +78,7 @@ namespace FrodoAPI.Controllers
                         From = new JourneyPoint(stops[index1]),
                         MeanOfTransportation = "Bus Line " + (random.Next(3) + 1).ToString(),
                         StartingTime = request.StartingDate + traveltime1 + TimeSpan.FromMinutes(5),
-                        TransportCompanyId = 1,
+                        TransportCompanyId = Guid.Parse("BC262847-27DD-45A8-AE6F-F879BD3D48CA"),
                         To = new JourneyPoint(stops[index2]),
                         TravelTime = traveltime2,
                         WaitingTime = TimeSpan.FromMinutes(5),
@@ -86,7 +89,7 @@ namespace FrodoAPI.Controllers
                         From = new JourneyPoint(stops[index2]),
                         MeanOfTransportation = "Bike",
                         StartingTime = request.StartingDate + traveltime1 + traveltime2 + TimeSpan.FromMinutes(10),
-                        TransportCompanyId = 1,
+                        TransportCompanyId = Guid.Parse("C33D3567-8BF2-42B4-A4F5-670ECE919429"),
                         To = new JourneyPoint() {Coordinates = request.EndingPoint},
                         TravelTime = traveltime3,
                         WaitingTime = TimeSpan.FromMinutes(5),
