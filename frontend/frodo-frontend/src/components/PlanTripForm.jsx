@@ -21,18 +21,37 @@ class PlanTripForm extends React.Component {
       }
 
 
-      saveTripStartPoint = (event) => {
-        event.preventDefault();
-        var newTripStartPoint = event.target.tripStartPoint.value;
+      saveTripStartPoint = () => {
+        var newTripStartPoint = document.getElementById("tripStartPointInput").value;
         console.log("saveTripStartPoint: " + newTripStartPoint);
-        this.props.updateTripStartPointCallback(newTripStartPoint);
+
+        var foundPoint = this.state.tripPointsList.filter(function (el) {
+            console.log(el.name);
+            return el.name === newTripStartPoint;
+          });
+
+          if(foundPoint === null || foundPoint.length === 0){
+            console.log("Point doesn't exist");
+        }else{
+            this.props.updateTripStartPointCallback(foundPoint[0].name, foundPoint[0].coordinate.latitude, foundPoint[0].coordinate.longitude);
+        }
       }
 
-      saveTripEndPoint = (event) => {
-        event.preventDefault();
-        var newTripEndPoint = event.target.tripEndPoint.value;
+      saveTripEndPoint = () => {
+        var newTripEndPoint = document.getElementById("tripEndPointInput").value;
         console.log("saveTripEndPoint: " + newTripEndPoint);
-        this.props.updateTripEndPointCallback(newTripEndPoint);
+
+        var foundPoint = this.state.tripPointsList.filter(function (el) {
+            console.log(el.name);
+            return el.name === newTripEndPoint;
+          });
+          if(foundPoint === null || foundPoint.length === 0){
+            console.log("Point doesn't exist");
+          }else{
+            this.props.updateTripEndPointCallback(foundPoint[0].name, foundPoint[0].coordinate.latitude, foundPoint[0].coordinate.longitude);
+
+          }
+
       }
 
       
@@ -47,6 +66,7 @@ class PlanTripForm extends React.Component {
                 <form onSubmit={this.saveTripStartPoint} className="tripPointForm">
                     <label htmlFor="tripStartPoint">Start</label>
                     <input
+                    id="tripStartPointInput"
                     className="form-control"
                         type="text"
                         name="tripStartPoint"
@@ -58,27 +78,23 @@ class PlanTripForm extends React.Component {
                     <datalist id='tripPointsList'>
                         { namesList }
                     </datalist>
-                    <button type="submit" className="btn btn-primary tripPointFormBtn">
-                        Save point
-                    </button>
                 </form>
 
                 <form onSubmit={this.saveTripEndPoint} className="tripPointForm">
                     <label htmlFor="tripEndPoint">End</label>
                     <input
+                    id="tripEndPointInput"
                     className="form-control"
                         type="text"
                         name="tripEndPoint"
                         placeholder="Select trip stop point from a map or select from a list"
                         defaultValue={this.props.tripEndPoint}
                         list='tripPointsList'
+                        onChange={this.saveTripEndPoint}
                     />
                     <datalist id='tripPointsList'>
                         { namesList }
                     </datalist>
-                    <button type="submit" className="btn btn-primary tripPointFormBtn">
-                        Save point
-                    </button>
                 </form>
             </div>
         )
