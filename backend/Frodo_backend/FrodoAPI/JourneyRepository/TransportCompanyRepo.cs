@@ -25,7 +25,7 @@
                     },
                     costFun: (from, to) =>
                     {
-                        return from.GetCoordinate().DistanceTo(to.GetCoordinate()) * 50.0;
+                        return from.Coordinates.DistanceTo(to.Coordinates) * 50.0;
                     },
                     getTicketFun: (from, to, passenger) =>
                     {
@@ -48,7 +48,7 @@
                     Id = Guid.Parse("BC262847-27DD-45A8-AE6F-F879BD3D48CA"),
                     Name = "Uber",
                     IsTaxi = true,
-                    ServedStations = new List<Station>(),
+
                 };
             }
 

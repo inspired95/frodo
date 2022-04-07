@@ -3,13 +3,14 @@
 
 namespace FrodoAPI.Contract
 {
+    [Serializable]
     public class JourneyRequest
     {
         public GeoCoordinate StartingPoint { get; set; }
         public GeoCoordinate EndingPoint { get; set; }
         public DateTime StartingDate { get; set; }
     }
-
+    [Serializable]
     public class GeoCoordinate
     {
         public double Longitude { get; set; }

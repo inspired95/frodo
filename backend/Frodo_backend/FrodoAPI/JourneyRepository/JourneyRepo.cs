@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.InteropServices;
 using FrodoAPI.Domain;
 
 namespace FrodoAPI.JourneyRepository
@@ -11,7 +10,7 @@ namespace FrodoAPI.JourneyRepository
         Guid AddJourney(Journey journey);
 
         Journey GetJourney(Guid id);
-        Guid Add(object journey);
+
     }
 
     class JourneyRepository : IJourneyRepository
@@ -27,12 +26,9 @@ namespace FrodoAPI.JourneyRepository
 
         public Journey GetJourney (Guid id)
         {
-            return _repo[id];
+            return _repo.ContainsKey(id) ? _repo[id] : null;
         }
 
-        public Guid Add(object journey)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

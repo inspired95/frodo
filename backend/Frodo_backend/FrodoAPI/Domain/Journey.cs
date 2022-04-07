@@ -9,15 +9,17 @@ namespace FrodoAPI.Domain
         public Guid GUID { get; set; }
         public List<JourneyStage> Stages { get; set; } 
     }
-
+    [Serializable]
     public class JourneyStage
     {
         public JourneyPoint From { get; set; }
         public JourneyPoint To { get; set; }
          public string MeanOfTransportation { get; set; }
         public DateTime StartingTime { get; set; }
-        public TimeSpan WaitingTime;
-        public TimeSpan TravelTime;
+        public int Price { get; set; }
+
+        public TimeSpan WaitingTime { get; set; }
+        public TimeSpan TravelTime { get; set; }
   
         public Guid TransportCompanyId;
     }
