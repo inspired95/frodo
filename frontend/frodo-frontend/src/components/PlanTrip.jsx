@@ -22,12 +22,40 @@ class PlanTrip extends React.Component {
         this.updateTripStartPoint = this.updateTripStartPoint.bind(this);
       }
 
+      reverseGeolocation(coords) {
+        return new Promise((resolve, reject) => {
+              let dataURL = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lon=${coords.lng}&lat=${coords.lat}`;
+              axios.get(dataURL).then(response => {
+                resolve(response.data);
+              }).catch(e => {
+                reject(e)
+              });
+        });
+      }
+
+      addressToString(data) {
+        let address = data.address;
+        let city = address.city || address.town || address.municipality || address.village || address.hamlet || address.locality || address.croft;
+        let street = address.road || address.footway || address.street || address.street_name;
+        let buildingNu = address.house_number || address.street_number;
+        //this.addressNotFull = !(city && street && buildingNu);
+        return `${city || ""}, ${street || ""} ${buildingNu || ""}`;
+    }
+
       handleStartSelected(coords) {
         this.updateTripStartPoint(coords.lat + ", " + coords.lng)
+        const ref = this;
+        this.reverseGeolocation(coords).then(  data => {
+          ref.updateTripStartPoint(this.addressToString(data))
+      })
       }
 
       handleEndSelected(coords) {
         this.updateTripEndPoint(coords.lat + ", " + coords.lng)
+        const ref = this;
+        this.reverseGeolocation(coords).then(  data => {
+          ref.updateTripEndPoint(this.addressToString(data))
+      })
       }
 
       updateTripStartPoint = (newTripStartPoint) => {
