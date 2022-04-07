@@ -19,7 +19,7 @@ namespace FrodoAPI.Domain
         public TimeSpan WaitingTime;
         public TimeSpan TravelTime;
   
-        public long TransportCompanyId;
+        public Guid TransportCompanyId;
     }
 
     public class Ticket

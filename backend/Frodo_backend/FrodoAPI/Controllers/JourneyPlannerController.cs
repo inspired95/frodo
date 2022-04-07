@@ -46,13 +46,14 @@ namespace FrodoAPI.Controllers
             if (index2 == index1) index2 = (index2 + 1) % stops.Count;
             return new Journey()
             {
-                GUID = new Guid(),
+                GUID = Guid.NewGuid(),
                 Stages = new List<JourneyStage>()
                 {
                     new JourneyStage()
                     {
                         From = new GeoPoint() { Coordinates = request.StartingPoint },
                         MeanOfTransportation = "Uber",
+                        
 
                     },
                     new JourneyStage() { },

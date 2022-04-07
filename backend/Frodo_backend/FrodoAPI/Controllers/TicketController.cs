@@ -21,18 +21,19 @@ namespace FrodoAPI.Controllers
         private readonly ITicketRepository _ticketRepository;
         private readonly IUserRepository _userRepository;
         private readonly IJourneyRepository _journeyRepository;
+        private readonly ITransportCompanyRepo _transportCompanyRepo;
 
-        public TicketController(ITicketProvider ticketProvider, ITicketRepository ticketRepository, IUserRepository userRepository, IJourneyRepository journeyRepository)
+        public TicketController(ITicketProvider ticketProvider, ITicketRepository ticketRepository, IUserRepository userRepository, IJourneyRepository journeyRepository, ITransportCompanyRepo transportCompanyRepo)
         {
             _ticketProvider = ticketProvider;
             _ticketRepository = ticketRepository;
             _userRepository = userRepository;
             _journeyRepository = journeyRepository;
+            _transportCompanyRepo = transportCompanyRepo;
         }
 
         public class TicketParameters
         {
-            public Guid UserId { get; set; }
             public Guid Journey { get; set; }
         }
 
@@ -45,24 +46,25 @@ namespace FrodoAPI.Controllers
         [HttpGet("SetupDemo")]
         public Guid SetupDemoJourney()
         {
+            
+
             return _journeyRepository.AddJourney(new Journey
             {
                 Stages = new List<JourneyStage>()
                 {
-                    new JourneyStage {From = new GeoPoint(), To = new GeoPoint(), TransportCompanyId = 1, StartingTime = DateTime.Now, TravelTime = TimeSpan.FromMinutes(1)},
-                    new JourneyStage {From = new GeoPoint(), To = new GeoPoint(), TransportCompanyId = 2, StartingTime = DateTime.Now.AddMinutes(2), TravelTime = TimeSpan.FromMinutes(2)},
+                    new JourneyStage {From = new GeoPoint(), To = new GeoPoint(), TransportCompanyId = _transportCompanyRepo.GetAll().First().Id, StartingTime = DateTime.Now, TravelTime = TimeSpan.FromMinutes(1)},
+                    new JourneyStage {From = new GeoPoint(), To = new GeoPoint(), TransportCompanyId = _transportCompanyRepo.GetAll().Last().Id, TravelTime = TimeSpan.FromMinutes(2)},
                 }
             });
         }
 
 
         [HttpGet("PossibleTickets")]
-        public TicketResult GetPossibleTickets(Guid userId, Guid journeyId)
+        public TicketResult GetPossibleTickets(Guid journeyId)
         {
             var ticketRequest = new TicketParameters
             {
                 Journey = journeyId,
-                UserId = userId
             };
             var journey = _journeyRepository.GetJourney(ticketRequest.Journey);
 
