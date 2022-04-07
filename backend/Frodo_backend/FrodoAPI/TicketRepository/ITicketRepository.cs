@@ -34,6 +34,9 @@ namespace FrodoAPI.TicketRepository
 
             var currentTicket = journey.Tickets.FirstOrDefault(t => t.Stage.StartingTime < currentTime && currentTime.Subtract(t.Stage.StartingTime) < t.Stage.TravelTime);
 
+            if (currentTicket == null)
+                return null;
+
             return new ValidateableTicket
             {
                 BarcodeData = currentTicket.Product + currentTicket.Price

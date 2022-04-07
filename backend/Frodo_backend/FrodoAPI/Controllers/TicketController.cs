@@ -49,8 +49,8 @@ namespace FrodoAPI.Controllers
             {
                 Stages = new List<JourneyStage>()
                 {
-                    new JourneyStage {From = new GeoPoint(), To = new GeoPoint(), TransportCompanyId = 1},
-                    new JourneyStage {From = new GeoPoint(), To = new GeoPoint(), TransportCompanyId = 2},
+                    new JourneyStage {From = new GeoPoint(), To = new GeoPoint(), TransportCompanyId = 1, StartingTime = DateTime.Now, TravelTime = TimeSpan.FromMinutes(1)},
+                    new JourneyStage {From = new GeoPoint(), To = new GeoPoint(), TransportCompanyId = 2, StartingTime = DateTime.Now.AddMinutes(2), TravelTime = TimeSpan.FromMinutes(2)},
                 }
             });
         }
