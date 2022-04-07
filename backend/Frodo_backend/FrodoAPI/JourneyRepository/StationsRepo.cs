@@ -42,7 +42,27 @@ namespace FrodoAPI.JourneyRepository
                 Name = "Billund Legoland",
                 Id =3,  
             };
-            _stations = new List<Station>() { stationA, stationB, stationC };
+
+            var stationD = new Station()
+            {
+                Coordinate = new GeoCoordinate()
+                {
+                    Latitude = 55.73386578811012,
+                    Longitude = 9.127654648288127
+                },
+                Name = "Billund some stop"
+            };
+
+            var stationE = new Station()
+            {
+                Coordinate = new GeoCoordinate()
+                {
+                    Longitude = 55.72942361030115,
+                    Latitude = 9.094821515936255
+                },
+                Name = "Billund stop E"
+            };
+            _stations = new List<Station>() { stationA, stationB, stationC, stationD, stationE };
         }
 
         public List<Station> GetAllStations()

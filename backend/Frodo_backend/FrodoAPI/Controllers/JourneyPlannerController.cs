@@ -58,13 +58,19 @@ namespace FrodoAPI.Controllers
             var traveltime3 =
                 TimeSpan.FromHours(request.EndingPoint.DistanceTo(stops[index2].Coordinate) / rand_speed);
 
-            var transportCompanies = _transportCompanyRepo.GetAll().ToArray();
+            var transportcompany1 = _transportCompanyRepo.Get(Guid.Parse("BC262847-27DD-45A8-AE6F-F879BD3D48CA"));
+            var transportcompany2 = _transportCompanyRepo.Get(Guid.Parse("C33D3567-8BF2-42B4-A4F5-670ECE919429"));
+            var transportcompany3 = _transportCompanyRepo.Get(Guid.Parse("77AC6F8C-7D54-4BA8-BFB1-9567DB4CEDB4"));
 
-            var transportcompany1 = transportCompanies[0];
-            var transportcompany2 = transportCompanies[1];
-            var transportcompany3 = transportCompanies[3];
+            var price1 = transportcompany1.GetTicket(new JourneyPoint() { Coordinates = request.StartingPoint },
+                new JourneyPoint(stops[index1]), "").Price;
+            var price2 = transportcompany2
+                .GetTicket(new JourneyPoint(stops[index2]), new JourneyPoint(stops[index1]), "").Price;
+            var price3 = transportcompany3.GetTicket(new JourneyPoint() { Coordinates = request.EndingPoint },
+                new JourneyPoint(stops[index2]), "").Price;
             return new Journey()
             {
+                TotalPrice = price3+price2+price1,
                 GUID = Guid.NewGuid(),
                 Stages = new List<JourneyStage>()
                 {
@@ -100,7 +106,9 @@ namespace FrodoAPI.Controllers
                         To = new JourneyPoint() {Coordinates = request.EndingPoint},
                         TravelTime = traveltime3,
                         WaitingTime = TimeSpan.FromMinutes(5),
-                        Price = transportcompany3.GetTicket(new JourneyPoint { Coordinates = request.EndingPoint }, new JourneyPoint(stops[index2]), "").Price
+                        Price = transportcompany1.GetTicket(new JourneyPoint() { Coordinates = request.EndingPoint }, new JourneyPoint(stops[index2]), "").Price
+
+
                     },
                 }
             };
