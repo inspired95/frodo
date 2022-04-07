@@ -10,11 +10,14 @@ class PlanTrip extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tripStartPoint: "",
-            tripEndPoint: "",
+            tripStartPointName: "",
+            tripStartPointLatitude: 0,
+            tripStartPointLongitude: 0,
+            tripEndPointName: "",
+            tripEndPointLatitude: 0,
+            tripEndPointLongitude: 0,
             tripsProposal: []
         }
-        this.validatePlanTripBtn = this.validatePlanTripBtn.bind(this);
         this.sendPlanTripRequest = this.sendPlanTripRequest.bind(this);
         this.updateTripStartPoint = this.updateTripStartPoint.bind(this);
       }
@@ -29,65 +32,45 @@ class PlanTrip extends React.Component {
 
       updateTripStartPoint = (newTripStartPoint) => {
         console.log("updateTripStartPoint: " + newTripStartPoint);
-        this.setState({ tripStartPoint: newTripStartPoint });
-        this.validatePlanTripBtn();
+        this.setState({ tripStartPointName: newTripStartPoint });
+        this.setState({ tripStartPointLatitude: newTripStartPoint });
+        this.setState({ tripStartPointLongitude: newTripStartPoint });
       }
 
       updateTripEndPoint = (newTripEndPoint) => {
         console.log("updateTripEndPoint: " + newTripEndPoint);
         this.setState({ tripEndPoint: newTripEndPoint });
-        this.validatePlanTripBtn();
       }
 
-      /*VALIDATION DOESN'T WORK*/
-      validatePlanTripBtn = () => {
-        var element = document.getElementById("planTripBtn");
-          if(this.state.tripStartPoint === "" || this.state.tripEndPoint === ""){
-            element.disabled = true;
-          }else{
-            element.disabled = false;
-          }
-      }
-
-      //NOT TO USE
-      localizeMe = (event) => {
-        event.preventDefault();
-        if (navigator.geolocation) {
-            navigator.geolocation.watchPosition(function(position) {
-
-              console.log("Latitude is :", position.coords.latitude);
-              console.log("Longitude is :", position.coords.longitude);
-              var coords = "" + position.coords.latitude+","+ position.coords.longitude;
-              console.log(coords);
-              //updateTripStartPoint(coords);
-            });
-
-          }
-      }
-
-
-
-
-      sendPlanTripRequest = async( event ) => {
-        event.preventDefault();
+      sendPlanTripRequest = async(ref) => {
         console.log("sendPlanTripRequest")
+        var today = new Date();
 
-        const planTripFormData = new FormData();
-        planTripFormData.append("tripStartPoint", this.state.tripStartPoint);
-        planTripFormData.append("tripEndPoint", this.state.tripEndPoint);
-        try {
-            const response = await axios({
-              method: "post",
-              url: "http://localhost:8080/GetTripOptions",
-              data: planTripFormData,
-              headers: { "Content-Type": "multipart/form-data" },
-            }).then((response) => {
-                console.log(response);
-                this.setState("tripsProposal", response.data.trips);
-            });
-          } catch(error) {
-            console.log(error)
-            var trips = { 
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        var requestData = JSON.stringify({
+            "StartingPoint": {      
+               "Longitude" : this.state.tripStartPointLatitude,       
+               "Latitude" : this.state.tripStartPointLongitude      
+            },      
+            "EndingPoint" : {  
+               "Longitude" : this.state.tripEndPointLatitude,   
+               "Latitude" : this.state.tripEndPointLongitude    
+            },     
+            "StartingDate" : date
+         });
+         console.log(requestData);
+
+         try{
+            axios.get(`http://localhost:5000/api/JourneyPlanner`, requestData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(res => {
+                ref.setState({"tripsProposal": res.data});
+            }).catch(function (error){
+              console.log(error);
+              var trips = { 
                 GUID : 524242342,
                 "trips" : [
                   {
@@ -180,9 +163,11 @@ class PlanTrip extends React.Component {
                 ]
               };
               console.log(JSON.stringify(trips, null, 2))
-              this.setState({"tripsProposal": trips});
-          }
-
+              ref.setState({"tripsProposal": trips});
+            })
+         }catch(error) {
+            console.log(error);
+         }
       }
 
 
@@ -190,7 +175,7 @@ class PlanTrip extends React.Component {
             return (
                 <div className="container-fluid">
                     <PlanTripForm tripStartPoint={this.state.tripStartPoint}  tripEndPoint={this.state.tripEndPoint} updateTripStartPointCallback={this.updateTripStartPoint} updateTripEndPointCallback={this.updateTripEndPoint}/>
-                    <button onClick={this.sendPlanTripRequest} id="planTripBtn" >Plan a trip</button>
+                    <button onClick={() => this.sendPlanTripRequest(this)} id="planTripBtn" >Plan a trip</button>
                     { this.state.tripsProposal.length !== 0 &&
                         <TripProposalView tripsProposal={this.state.tripsProposal}/>
                     }

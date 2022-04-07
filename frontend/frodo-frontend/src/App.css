@@ -65,6 +65,7 @@
 }
 
 .tripsProposalContainer{
+  z-index: 200;
   margin: 0 auto;
   justify-content: center;
   max-width: 30%;
