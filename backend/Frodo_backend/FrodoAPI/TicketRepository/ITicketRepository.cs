@@ -86,16 +86,14 @@ namespace FrodoAPI.TicketRepository
 
         public Guid Add( in Guid journeyGuid, Ticket[] results)
         {
-            var id = Guid.NewGuid();
-            
-            _bundles.Add	(id, new TicketBundle
+            _bundles.Add	(journeyGuid, new TicketBundle
             {
                 JourneyId = journeyGuid,
                 Sold = false,
                 Tickets = results
             });
 
-            return id;
+            return journeyGuid;
         }
 
         public void Persist(Guid bundleId)
