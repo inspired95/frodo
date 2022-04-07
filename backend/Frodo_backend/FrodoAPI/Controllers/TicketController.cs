@@ -7,7 +7,6 @@ using System.Linq;
 using FrodoAPI.Domain;
 using FrodoAPI.JourneyRepository;
 using FrodoAPI.TicketRepository;
-using FrodoAPI.UserRepository;
 using Microsoft.AspNetCore.Mvc;
 using QRCoder;
 
@@ -19,24 +18,17 @@ namespace FrodoAPI.Controllers
     {
         private readonly ITicketProvider _ticketProvider;
         private readonly ITicketRepository _ticketRepository;
-        private readonly IUserRepository _userRepository;
         private readonly IJourneyRepository _journeyRepository;
         private readonly ITransportCompanyRepo _transportCompanyRepo;
         private readonly IStationRepository _stationRepository;
 
-        public TicketController(ITicketProvider ticketProvider, ITicketRepository ticketRepository, IUserRepository userRepository, IJourneyRepository journeyRepository, ITransportCompanyRepo transportCompanyRepo, IStationRepository stationRepository)
+        public TicketController(ITicketProvider ticketProvider, ITicketRepository ticketRepository, IJourneyRepository journeyRepository, ITransportCompanyRepo transportCompanyRepo, IStationRepository stationRepository)
         {
             _ticketProvider = ticketProvider;
             _ticketRepository = ticketRepository;
-            _userRepository = userRepository;
             _journeyRepository = journeyRepository;
             _transportCompanyRepo = transportCompanyRepo;
             _stationRepository = stationRepository;
-        }
-
-        public class TicketParameters
-        {
-            public Guid Journey { get; set; }
         }
 
         public class TicketResult
@@ -65,15 +57,11 @@ namespace FrodoAPI.Controllers
         [HttpGet("PossibleTickets")]
         public TicketResult GetPossibleTickets(Guid journeyId)
         {
-            var ticketRequest = new TicketParameters
-            {
-                Journey = journeyId,
-            };
-            var journey = _journeyRepository.GetJourney(ticketRequest.Journey);
+            var journey = _journeyRepository.GetJourney(journeyId);
 
             var results = journey.Stages.Select(s => _ticketProvider.GetTicketForStage(s)).ToArray();
 
-            var requestId = _ticketRepository.Add(ticketRequest.Journey, results);
+            var requestId = _ticketRepository.Add(journeyId, results);
 
             return new TicketResult
             {
