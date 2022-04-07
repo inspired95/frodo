@@ -12,8 +12,8 @@ namespace FrodoAPI.Contract
 
     public class GeoCoordinate
     {
-        public double Longitude;
-        public double Latitude;
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
 
         public double DistanceTo(GeoCoordinate other)
         {

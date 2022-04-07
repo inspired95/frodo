@@ -43,7 +43,7 @@ namespace FrodoAPI.Controllers
         }
 
         [HttpPost]
-        public void BuyTickets(Ticket[])
+        public void BuyTickets(Ticket[] tickets)
         {
 
         }

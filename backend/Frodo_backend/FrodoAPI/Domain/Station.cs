@@ -1,11 +1,15 @@
-﻿using FrodoAPI.Contract;
+﻿using System;
+using FrodoAPI.Contract;
 
 namespace FrodoAPI.Domain
 {
+    [Serializable]
     public class Station : JourneyPoint
     {
-        public string Name;
-        public GeoCoordinate Coordinate;
+        public string Name { get; set; }
+        public GeoCoordinate Coordinate { get; set; }
+        public int Id { get; set; }
+
         public override GeoCoordinate GetCoordinate()
         {
             return Coordinate;

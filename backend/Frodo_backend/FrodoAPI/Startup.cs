@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FrodoAPI.JourneyRepository;
 
 namespace FrodoAPI
 {
@@ -26,6 +27,7 @@ namespace FrodoAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSingleton<IStationRepository, StationsRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

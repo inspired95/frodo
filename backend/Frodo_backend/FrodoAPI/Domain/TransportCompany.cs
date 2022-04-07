@@ -41,12 +41,5 @@ namespace FrodoAPI.Domain
 
     }
 
-    public class Ticket
-    {
-        public string IssuedFor;
-        public JourneyPoint From;
-        public JourneyPoint To;
-        public double Price;
-        public Guid Id;
-    }
+
 }

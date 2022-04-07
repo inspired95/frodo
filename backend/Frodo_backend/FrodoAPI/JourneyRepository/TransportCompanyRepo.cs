@@ -23,10 +23,9 @@
                     {
                         return new Ticket()
                         {
-                            From = from,
-                            To = to,
+
                             Id = new Guid(),
-                            IssuedFor = passenger,
+
                         };
                     }                   
                     )
