@@ -9,8 +9,9 @@ namespace FrodoAPI.TicketRepository
     {
         ValidateableTicket GetForCurrentStage(Guid journeyId, DateTime currentTime);
         Guid Add(in Guid journeyGuid, Ticket[]	 results);
+        ValidateableTicket Get(Guid journeyId, Guid ticketId);
 
-
+        IEnumerable<ValidateableTicket> GetAllTickets(Guid journeyId);
         void Persist(Guid	 bundleId);
     }
 
@@ -39,8 +40,44 @@ namespace FrodoAPI.TicketRepository
 
             return new ValidateableTicket
             {
+                TicketId = currentTicket.Id,
                 BarcodeData = currentTicket.Product + currentTicket.Price
             };
+        }
+
+        public ValidateableTicket Get(Guid journeyId, Guid ticketId)
+        {
+            var journey = _bundles.Values.FirstOrDefault(b => b.JourneyId == journeyId);
+
+            if (journey == null || !journey.Sold)
+                return null;
+
+            var currentTicket = journey.Tickets.FirstOrDefault(t => t.Id == ticketId);
+
+            if (currentTicket == null)
+                return null;
+
+            return new ValidateableTicket
+            {
+                TicketId = currentTicket.Id,
+                BarcodeData = currentTicket.Product + currentTicket.Price
+            };
+        }
+
+        public IEnumerable<ValidateableTicket> GetAllTickets(Guid journeyId)
+        {
+            var journey = _bundles.Values.FirstOrDefault(b => b.JourneyId == journeyId);
+
+            if (journey == null || !journey.Sold)
+                yield break;
+            
+            foreach (var journeyTicket in journey.Tickets)
+            {
+                yield return new ValidateableTicket
+                {
+                    BarcodeData = journeyTicket.Product + journeyTicket.Price
+                };
+            }
         }
 
         public Guid Add( in Guid journeyGuid, Ticket[] results)

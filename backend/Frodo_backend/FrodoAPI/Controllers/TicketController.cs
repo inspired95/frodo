@@ -92,10 +92,38 @@ namespace FrodoAPI.Controllers
             return _ticketRepository.GetForCurrentStage(journeyId, DateTime.Now);
         }
 
+        [HttpGet("AllTickets")]
+        public IEnumerable<ValidateableTicket> GetAllTickets(Guid journeyId)
+        {
+            return _ticketRepository.GetAllTickets(journeyId);
+        }
+
         [HttpGet("Barcode")]
-        public IActionResult GetBarcode(Guid journeyId)
+        public IActionResult GetBarcode(Guid journeyId, Guid ticketId)
+        {
+            var ticket = _ticketRepository.Get(journeyId, ticketId);
+
+            if (ticket == null)
+                return null;
+
+            var qrGenerator = new QRCodeGenerator();
+            var qrCodeInfo = qrGenerator.CreateQrCode(ticket.BarcodeData, QRCodeGenerator.ECCLevel.Q);
+            var qrCode = new QRCode(qrCodeInfo);
+            var qrBitmap = qrCode.GetGraphic(60);
+            byte[] bitmapArray = qrBitmap.BitmapToByteArray();
+
+            return File(bitmapArray, "image/jpeg");
+        }
+
+
+        [HttpGet("GetCurrentBarcode")]
+        public IActionResult GetCurrentBarcode(Guid journeyId)
         {
             var ticket = _ticketRepository.GetForCurrentStage(journeyId, DateTime.Now);
+
+            if (ticket == null)
+                return null;
+
             var qrGenerator = new QRCodeGenerator();
             var qrCodeInfo = qrGenerator.CreateQrCode(ticket.BarcodeData, QRCodeGenerator.ECCLevel.Q);
             var qrCode = new QRCode(qrCodeInfo);

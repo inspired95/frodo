@@ -34,8 +34,8 @@ namespace FrodoAPI.Domain
 
     public class ValidateableTicket
     {
-        public Guid UserId { get; set; }
         public string BarcodeData { get; set; }
+        public Guid TicketId { get; set; }
     }
 
 }
