@@ -13,17 +13,16 @@ class TripProposalCard extends React.Component {
 
       handleBuy(guid) {
         console.log("attempt to buy a ticket for guid: " + guid)
-
-        const requestData = {journeyId:guid}
         try{
           
-          axios.get(`http://localhost:5000/api/Ticket/Buy?journeyId=ef16699a-2c40-4fcd-bcec-ca7cb79d0dd8`, {
+          axios.get(`http://localhost:5000/api/Ticket/Buy?journeyId=${guid}`, {
               headers: {
                   'Content-Type': 'application/json',
               }
           })
           .then(res => {
-              console.log("buy a ticket response: " + res.data)
+              console.log("buy a ticket successfull! ")
+              // TODO show message
           }).catch(function (error){
             console.error(error);
           })
@@ -33,8 +32,8 @@ class TripProposalCard extends React.Component {
       }
 
       render(){
-        const guid = this.props.tripProposal.GUID
-        var tripsProposalStages = this.props.tripProposal.Stages.map(function(stage){
+        const guid = this.props.tripProposal.guid
+        var tripsProposalStages = this.props.tripProposal.stages.map(function(stage){
             console.log(stage);
             return <TripProposalStage stage={stage}/>;
           })
