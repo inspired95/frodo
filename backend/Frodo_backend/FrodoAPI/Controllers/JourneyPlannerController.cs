@@ -40,7 +40,7 @@ namespace FrodoAPI.Controllers
    
             var journey2 = CreateRandomJourney(request);
             _journeyRepository.AddJourney(journey2);
-
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
             return new List<Journey>()
                 {journey1, journey2};
         }
