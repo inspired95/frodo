@@ -1,6 +1,14 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\backend",
+    "\\backend\\Frodo_backend",
+    "\\backend\\Frodo_backend\\FrodoAPI",
+    "\\frontend",
+    "\\frontend\\frodo-frontend",
+    "\\frontend\\frodo-frontend\\public",
+    "\\frontend\\frodo-frontend\\src"
   ],
+  "SelectedNode": "\\backend\\Frodo_backend\\Frodo_backend.sln",
   "PreviewInSolutionExplorer": false
 }

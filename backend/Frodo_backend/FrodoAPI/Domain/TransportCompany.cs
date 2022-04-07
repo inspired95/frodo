@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Authentication;
 
 namespace FrodoAPI.Domain
 {
@@ -9,7 +8,6 @@ namespace FrodoAPI.Domain
         private readonly CanGetFromToFun _canGetFromTo;
         private readonly CostFromToFun _costFun;
         private readonly GetTicketFun _getTicketFun;
-        public Guid Id;
         public string Name;
         public bool IsTaxi;
         public List<Station> ServedStations;
@@ -17,6 +15,8 @@ namespace FrodoAPI.Domain
         public delegate double CostFromToFun(JourneyPoint from, JourneyPoint to);
 
         public delegate Ticket GetTicketFun(JourneyPoint from, JourneyPoint to, string Passenger);
+
+        public Guid Id { get; set; }
 
         public bool CanGetFromTo(JourneyPoint from, JourneyPoint to)
         {

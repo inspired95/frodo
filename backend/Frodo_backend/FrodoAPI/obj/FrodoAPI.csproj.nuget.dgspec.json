@@ -1,31 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\krzysztof.szeruga\\source\\repos\\frodo\\backend\\Frodo_backend\\FrodoAPI\\FrodoAPI.csproj": {}
+    "C:\\Build-a-Thon\\inspired95\\frodo\\backend\\Frodo_backend\\FrodoAPI\\FrodoAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\krzysztof.szeruga\\source\\repos\\frodo\\backend\\Frodo_backend\\FrodoAPI\\FrodoAPI.csproj": {
+    "C:\\Build-a-Thon\\inspired95\\frodo\\backend\\Frodo_backend\\FrodoAPI\\FrodoAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krzysztof.szeruga\\source\\repos\\frodo\\backend\\Frodo_backend\\FrodoAPI\\FrodoAPI.csproj",
+        "projectUniqueName": "C:\\Build-a-Thon\\inspired95\\frodo\\backend\\Frodo_backend\\FrodoAPI\\FrodoAPI.csproj",
         "projectName": "FrodoAPI",
-        "projectPath": "C:\\Users\\krzysztof.szeruga\\source\\repos\\frodo\\backend\\Frodo_backend\\FrodoAPI\\FrodoAPI.csproj",
-        "packagesPath": "C:\\Users\\krzysztof.szeruga\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krzysztof.szeruga\\source\\repos\\frodo\\backend\\Frodo_backend\\FrodoAPI\\obj\\",
+        "projectPath": "C:\\Build-a-Thon\\inspired95\\frodo\\backend\\Frodo_backend\\FrodoAPI\\FrodoAPI.csproj",
+        "packagesPath": "C:\\Users\\kling\\.nuget\\packages\\",
+        "outputPath": "C:\\Build-a-Thon\\inspired95\\frodo\\backend\\Frodo_backend\\FrodoAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\krzysztof.szeruga\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\kling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "d:\\lio\\hg-intl-default\\ExternalLibs\\IdentityModel.AspNetCore-1.0.0-rc.4\\artifacts\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -67,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
         }
       }
     }
