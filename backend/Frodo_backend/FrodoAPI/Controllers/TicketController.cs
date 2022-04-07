@@ -45,6 +45,7 @@ namespace FrodoAPI.Controllers
 
             return _journeyRepository.AddJourney(new Journey
             {
+                GUID = Guid.NewGuid(),
                 Stages = new List<JourneyStage>()
                 {
                     new JourneyStage {From = new JourneyPoint(allStations[0]), To = new JourneyPoint(allStations[1]), TransportCompanyId = _transportCompanyRepo.GetAll().First().Id, StartingTime = DateTime.Now, TravelTime = TimeSpan.FromMinutes(1)},
@@ -104,11 +105,11 @@ namespace FrodoAPI.Controllers
             var qrBitmap = qrCode.GetGraphic(60);
             byte[] bitmapArray = qrBitmap.BitmapToByteArray();
 
-            return File(bitmapArray, "image/jpeg");
+            return File(bitmapArray, "image/png");
         }
 
 
-        [HttpGet("GetCurrentBarcode")]
+        [HttpGet("CurrentBarcode")]
         public IActionResult GetCurrentBarcode(Guid journeyId, int size = 10)
         {
             var ticket = _ticketRepository.GetForCurrentStage(journeyId, DateTime.Now);
