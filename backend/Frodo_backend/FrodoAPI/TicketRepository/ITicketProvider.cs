@@ -1,5 +1,4 @@
-﻿using System;
-using FrodoAPI.Domain;
+﻿using FrodoAPI.Domain;
 using FrodoAPI.JourneyRepository;
 
 namespace FrodoAPI.TicketRepository
@@ -21,7 +20,11 @@ namespace FrodoAPI.TicketRepository
         public Ticket GetTicketForStage(JourneyStage stage)
         {
             var transportOrganisation = _transportCompanyRepo.Get(stage.TransportCompanyId);
-            return transportOrganisation.GetTicket(stage.From, stage.To, "Bruce Willis");
+            var ticket = transportOrganisation.GetTicket(stage.From, stage.To, "Bruce Willis");
+
+            ticket.Stage = stage;
+
+            return ticket;
         }
     }
 
