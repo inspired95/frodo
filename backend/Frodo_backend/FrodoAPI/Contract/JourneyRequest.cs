@@ -5,9 +5,9 @@ namespace FrodoAPI.Contract
 {
     public class JourneyRequest
     {
-        GeoCoordinate StartingPoint;
-        GeoCoordinate EndingPoint;
-        DateTime StartingDate;
+        public GeoCoordinate StartingPoint { get; set; }
+        public GeoCoordinate EndingPoint { get; set; }
+        public DateTime StartingDate { get; set; }
     }
 
     public class GeoCoordinate

@@ -4,7 +4,7 @@ namespace FrodoAPI.Domain
 {
     public class GeoPoint : JourneyPoint
     {
-        GeoCoordinate Coordinates;
+        public GeoCoordinate Coordinates { get; set; }
         public override GeoCoordinate GetCoordinate()
         {
             return Coordinates;
