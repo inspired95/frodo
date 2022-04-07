@@ -40,6 +40,8 @@ namespace FrodoAPI.Domain
         public DateTime StartingTime { get; set; }
         public string BarcodeData { get; set; }
         public Guid TicketId { get; set; }
+        public string From { get; set; }
+        public string To { get; set; }
     }
 
 }
