@@ -10,7 +10,7 @@ class TripProposalView extends React.Component {
       }
       render(){
           
-        var tripsProposalCards = this.props.tripsProposal.trips.map(function(tripProposal){
+        var tripsProposalCards = this.props.tripsProposal.map(function(tripProposal){
             console.log(tripProposal);
             return <TripProposalCard tripProposal={tripProposal}/>;
           })
