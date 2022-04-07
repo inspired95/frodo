@@ -16,7 +16,7 @@ namespace FrodoAPI.Domain
         public JourneyPoint To { get; set; }
          public string MeanOfTransportation { get; set; }
         public DateTime StartingTime { get; set; }
-        public int Price { get; set; }
+        public double Price { get; set; }
 
         public TimeSpan WaitingTime { get; set; }
         public TimeSpan TravelTime { get; set; }

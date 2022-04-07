@@ -30,8 +30,8 @@ namespace FrodoAPI.Controllers
         }
 
         // GET: api/<StationsController>
-        [HttpGet]
-        public IEnumerable<Journey> Get(JourneyRequest request)
+        [HttpPost]
+        public IEnumerable<Journey> Post(JourneyRequest request)
         {
             _logger.LogCritical($"Get {request}");
             var journey1 = CreateRandomJourney(request);
@@ -58,6 +58,10 @@ namespace FrodoAPI.Controllers
                 TimeSpan.FromHours(stops[index1].Coordinate.DistanceTo(stops[index2].Coordinate) / rand_speed);
             var traveltime3 =
                 TimeSpan.FromHours(request.EndingPoint.DistanceTo(stops[index2].Coordinate) / rand_speed);
+
+            var transportcompany1 = _transportCompanyRepo.Get(Guid.Parse("BC262847-27DD-45A8-AE6F-F879BD3D48CA"));
+            var transportcompany2 = _transportCompanyRepo.Get(Guid.Parse("C33D3567-8BF2-42B4-A4F5-670ECE919429"));
+            var transportcompany3 = _transportCompanyRepo.Get(Guid.Parse("77AC6F8C-7D54-4BA8-BFB1-9567DB4CEDB4"));
             return new Journey()
             {
                 GUID = Guid.NewGuid(),
@@ -72,7 +76,7 @@ namespace FrodoAPI.Controllers
                         To = new JourneyPoint(stops[index1]),
                         TravelTime = traveltime1,
                         WaitingTime = TimeSpan.FromMinutes(5),
-                        Price = 100,
+                        Price = transportcompany1.GetTicket(new JourneyPoint() { Coordinates = request.StartingPoint }, new JourneyPoint(stops[index1]), "").Price
 
                     },
                     new JourneyStage()
@@ -80,11 +84,11 @@ namespace FrodoAPI.Controllers
                         From = new JourneyPoint(stops[index1]),
                         MeanOfTransportation = "Bus Line " + (random.Next(3) + 1).ToString(),
                         StartingTime = request.StartingDate + traveltime1 + TimeSpan.FromMinutes(5),
-                        TransportCompanyId = Guid.Parse("BC262847-27DD-45A8-AE6F-F879BD3D48CA"),
+                        TransportCompanyId = Guid.Parse("C33D3567-8BF2-42B4-A4F5-670ECE919429"),
                         To = new JourneyPoint(stops[index2]),
                         TravelTime = traveltime2,
                         WaitingTime = TimeSpan.FromMinutes(5),
-                        Price = 20,
+                        Price = transportcompany2.GetTicket(new JourneyPoint(stops[index2]) ,new JourneyPoint(stops[index1]),"" ).Price
 
                     },
                     new JourneyStage() {                       
@@ -95,7 +99,8 @@ namespace FrodoAPI.Controllers
                         To = new JourneyPoint() {Coordinates = request.EndingPoint},
                         TravelTime = traveltime3,
                         WaitingTime = TimeSpan.FromMinutes(5),
-                        Price = 15,
+                        Price = transportcompany1.GetTicket(new JourneyPoint() { Coordinates = request.EndingPoint }, new JourneyPoint(stops[index2]), "").Price
+
 
                     },
                 }
