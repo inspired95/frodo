@@ -8,11 +8,11 @@ namespace FrodoAPI.TicketRepository
         Ticket GetTicketForStage(JourneyStage stage);
     }
 
-    public class DummyTicketProvider : ITicketProvider
+    public class TicketProvider : ITicketProvider
     {
         private readonly ITransportCompanyRepo _transportCompanyRepo;
 
-        public DummyTicketProvider(ITransportCompanyRepo transportCompanyRepo)
+        public TicketProvider(ITransportCompanyRepo transportCompanyRepo)
         {
             _transportCompanyRepo = transportCompanyRepo;
         }
