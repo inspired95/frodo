@@ -106,7 +106,7 @@ namespace FrodoAPI.Controllers
                         To = new JourneyPoint() {Coordinates = request.EndingPoint},
                         TravelTime = traveltime3,
                         WaitingTime = TimeSpan.FromMinutes(5),
-                        Price = transportcompany1.GetTicket(new JourneyPoint() { Coordinates = request.EndingPoint }, new JourneyPoint(stops[index2]), "").Price
+                        Price = transportcompany3.GetTicket(new JourneyPoint() { Coordinates = request.EndingPoint }, new JourneyPoint(stops[index2]), "").Price
 
 
                     },
