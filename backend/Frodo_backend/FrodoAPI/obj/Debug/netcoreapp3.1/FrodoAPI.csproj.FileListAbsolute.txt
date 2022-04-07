@@ -37,13 +37,4 @@ c:\Build-a-Thon\inspired95\frodo\backend\Frodo_backend\FrodoAPI\obj\Debug\netcor
 c:\Build-a-Thon\inspired95\frodo\backend\Frodo_backend\FrodoAPI\obj\Debug\netcoreapp3.1\FrodoAPI.dll
 c:\Build-a-Thon\inspired95\frodo\backend\Frodo_backend\FrodoAPI\obj\Debug\netcoreapp3.1\FrodoAPI.pdb
 C:\Build-a-Thon\inspired95\frodo\backend\Frodo_backend\FrodoAPI\obj\Debug\netcoreapp3.1\FrodoAPI.genruntimeconfig.cache
-c:\Build-a-Thon\inspired95\frodo\backend\Frodo_backend\FrodoAPI\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
-c:\Build-a-Thon\inspired95\frodo\backend\Frodo_backend\FrodoAPI\bin\Debug\netcoreapp3.1\QRCoder.dll
-c:\Build-a-Thon\inspired95\frodo\backend\Frodo_backend\FrodoAPI\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
-c:\Build-a-Thon\inspired95\frodo\backend\Frodo_backend\FrodoAPI\bin\Debug\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll
-c:\Build-a-Thon\inspired95\frodo\backend\Frodo_backend\FrodoAPI\bin\Debug\netcoreapp3.1\System.Text.Encoding.CodePages.dll
-c:\Build-a-Thon\inspired95\frodo\backend\Frodo_backend\FrodoAPI\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
-c:\Build-a-Thon\inspired95\frodo\backend\Frodo_backend\FrodoAPI\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
-c:\Build-a-Thon\inspired95\frodo\backend\Frodo_backend\FrodoAPI\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
-c:\Build-a-Thon\inspired95\frodo\backend\Frodo_backend\FrodoAPI\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Text.Encoding.CodePages.dll
-C:\Build-a-Thon\inspired95\frodo\backend\Frodo_backend\FrodoAPI\obj\Debug\netcoreapp3.1\FrodoAPI.csproj.CopyComplete
+C:\Users\krzysztof.szeruga\source\repos\frodo\backend\Frodo_backend\FrodoAPI\bin\Debug\netcoreapp3.1\FrodoAPI.StaticWebAssets.xml

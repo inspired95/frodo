@@ -1,0 +1,7 @@
+C:\Users\krzysztof.szeruga\source\repos\frodo\backend\Frodo_backend\FrodoAPI\obj\Release\netcoreapp3.1\PubTmp\Out\FrodoAPI.exe
+C:\Users\krzysztof.szeruga\source\repos\frodo\backend\Frodo_backend\FrodoAPI\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.Development.json
+C:\Users\krzysztof.szeruga\source\repos\frodo\backend\Frodo_backend\FrodoAPI\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.json
+C:\Users\krzysztof.szeruga\source\repos\frodo\backend\Frodo_backend\FrodoAPI\obj\Release\netcoreapp3.1\PubTmp\Out\FrodoAPI.dll
+C:\Users\krzysztof.szeruga\source\repos\frodo\backend\Frodo_backend\FrodoAPI\obj\Release\netcoreapp3.1\PubTmp\Out\FrodoAPI.deps.json
+C:\Users\krzysztof.szeruga\source\repos\frodo\backend\Frodo_backend\FrodoAPI\obj\Release\netcoreapp3.1\PubTmp\Out\FrodoAPI.runtimeconfig.json
+C:\Users\krzysztof.szeruga\source\repos\frodo\backend\Frodo_backend\FrodoAPI\obj\Release\netcoreapp3.1\PubTmp\Out\FrodoAPI.pdb
