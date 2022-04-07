@@ -34,7 +34,6 @@ namespace FrodoAPI.Controllers
 
         public class TicketParameters
         {
-            public Guid UserId { get; set; }
             public Guid Journey { get; set; }
         }
 
@@ -61,12 +60,11 @@ namespace FrodoAPI.Controllers
 
 
         [HttpGet("PossibleTickets")]
-        public TicketResult GetPossibleTickets(Guid userId, Guid journeyId)
+        public TicketResult GetPossibleTickets(Guid journeyId)
         {
             var ticketRequest = new TicketParameters
             {
                 Journey = journeyId,
-                UserId = userId
             };
             var journey = _journeyRepository.GetJourney(ticketRequest.Journey);
 

@@ -17,10 +17,10 @@ namespace FrodoAPI.JourneyRepository
     class JourneyRepository : IJourneyRepository
     {
         // add item to dictionary
-        private Dictionary<Guid, Journey> _repo;
+        private Dictionary<Guid, Journey> _repo = new Dictionary<Guid, Journey>();
         public Guid AddJourney(Journey journey)
         {
-            var id = new Guid();
+            var id = Guid.NewGuid();
             _repo[id] = journey;
             return id;
         }
