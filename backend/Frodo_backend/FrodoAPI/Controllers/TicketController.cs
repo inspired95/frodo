@@ -43,6 +43,7 @@ namespace FrodoAPI.Controllers
         {
             public Guid Id { get; set; }
             public Ticket[] Tickets { get; set; }
+            public double TotalPrice { get; set; }
         }
 
         [HttpGet("SetupDemo")]
@@ -77,7 +78,8 @@ namespace FrodoAPI.Controllers
             return new TicketResult
             {
                 Id = requestId,
-                Tickets = results
+                Tickets = results,
+                TotalPrice = results.Sum(e=> e.Price)
             };
         }
 
@@ -106,7 +108,7 @@ namespace FrodoAPI.Controllers
             var ticket = _ticketRepository.Get(journeyId, ticketId);
 
             if (ticket == null)
-                return null;
+                return new EmptyResult();
 
             var qrGenerator = new QRCodeGenerator();
             var qrCodeInfo = qrGenerator.CreateQrCode(ticket.BarcodeData, QRCodeGenerator.ECCLevel.Q);
@@ -124,7 +126,7 @@ namespace FrodoAPI.Controllers
             var ticket = _ticketRepository.GetForCurrentStage(journeyId, DateTime.Now);
 
             if (ticket == null)
-                return null;
+                return new EmptyResult();
 
             var qrGenerator = new QRCodeGenerator();
             var qrCodeInfo = qrGenerator.CreateQrCode(ticket.BarcodeData, QRCodeGenerator.ECCLevel.Q);

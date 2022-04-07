@@ -19,8 +19,8 @@ namespace FrodoAPI.TicketRepository
 
         public Ticket GetTicketForStage(JourneyStage stage)
         {
-            var transportOrganisation = _transportCompanyRepo.Get(stage.TransportCompanyId);
-            var ticket = transportOrganisation.GetTicket(stage.From, stage.To, "Bruce Willis");
+            var transportCompany = _transportCompanyRepo.Get(stage.TransportCompanyId);
+            var ticket = transportCompany.GetTicket(stage.From, stage.To, "Bruce Willis");
 
             ticket.Stage = stage;
 
