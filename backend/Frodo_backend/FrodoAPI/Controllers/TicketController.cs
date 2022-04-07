@@ -109,7 +109,7 @@ namespace FrodoAPI.Controllers
 
 
         [HttpGet("GetCurrentBarcode")]
-        public IActionResult GetCurrentBarcode(Guid journeyId)
+        public IActionResult GetCurrentBarcode(Guid journeyId, int size = 10)
         {
             var ticket = _ticketRepository.GetForCurrentStage(journeyId, DateTime.Now);
 
@@ -119,7 +119,7 @@ namespace FrodoAPI.Controllers
             var qrGenerator = new QRCodeGenerator();
             var qrCodeInfo = qrGenerator.CreateQrCode(ticket.BarcodeData, QRCodeGenerator.ECCLevel.Q);
             var qrCode = new QRCode(qrCodeInfo);
-            var qrBitmap = qrCode.GetGraphic(60);
+            var qrBitmap = qrCode.GetGraphic(size);
             byte[] bitmapArray = qrBitmap.BitmapToByteArray();
 
             return File(bitmapArray, "image/jpeg");
