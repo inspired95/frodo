@@ -58,19 +58,20 @@ class PlanTrip extends React.Component {
       })
       }
 
-      updateTripStartPoint = (newTripStartPoint) => {
-        console.log("updateTripStartPoint: " + newTripStartPoint);
-        var foundPoint = this.state.tripsProposal.filter(function (el) {
-            return el.name === newTripStartPoint;
-          });
-        this.setState({ tripStartPointName: foundPoint.name });
-        this.setState({ tripStartPointLatitude: foundPoint.longitude });
-        this.setState({ tripStartPointLongitude: foundPoint.latitude });
+      updateTripStartPoint = (name, latitude, longitude) => {
+        console.log("updateTripStartPoint: " + name + ", " + latitude + ", " + longitude);
+
+        this.setState({ tripStartPointName: name });
+        this.setState({ tripStartPointLatitude: longitude });
+        this.setState({ tripStartPointLongitude: latitude });
       }
 
-      updateTripEndPoint = (newTripEndPoint) => {
-        console.log("updateTripEndPoint: " + newTripEndPoint);
-        this.setState({ tripEndPoint: newTripEndPoint });
+      updateTripEndPoint = (name, latitude, longitude) => {
+        console.log("updateTripEndPoint: " + name + ", " + latitude + ", " + longitude);
+
+        this.setState({ tripEndPointName: name });
+        this.setState({ tripEndPointLatitude: longitude });
+        this.setState({ tripEndPointLongitude: latitude });
       }
 
       sendPlanTripRequest = async(ref) => {
