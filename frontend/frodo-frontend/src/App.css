@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+
+.planTripFormContainer {
+  /*width of container*/
+  width: 80%;
+  /*center container and its content*/
+  margin: 0 auto;
+  justify-content: center;
+  text-align: center;
+  /*Display forms in line*/
+  display: flex;
+}
+
+.tripPointForm{
+  display: grid;
+}
+.tripPointForm:nth-child(2) {
+  margin-left: 40px;
+}
+
+.tripPointFormBtn{
+  margin: 10px;
+  margin-top: 15px;
+}
