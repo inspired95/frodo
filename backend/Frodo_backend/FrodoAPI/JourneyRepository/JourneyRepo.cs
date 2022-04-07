@@ -19,7 +19,7 @@ namespace FrodoAPI.JourneyRepository
         private Dictionary<Guid, Journey> _repo = new Dictionary<Guid, Journey>();
         public Guid AddJourney(Journey journey)
         {
-            var id = Guid.NewGuid();
+            var id = journey.GUID;
             _repo[id] = journey;
             return id;
         }
