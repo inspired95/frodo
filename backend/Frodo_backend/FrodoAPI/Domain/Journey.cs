@@ -8,6 +8,7 @@ namespace FrodoAPI.Domain
     {
         public Guid GUID { get; set; }
         public List<JourneyStage> Stages { get; set; } 
+        public double TotalPrice { get; set; }
     }
     [Serializable]
     public class JourneyStage

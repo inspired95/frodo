@@ -12,7 +12,8 @@ namespace FrodoAPI.TicketRepository
         ValidateableTicket Get(Guid journeyId, Guid ticketId);
 
         IEnumerable<ValidateableTicket> GetAllTickets(Guid journeyId);
-        void Persist(Guid	 bundleId);
+        void Persist(Guid	 journeyId);
+        bool Contains(Guid journeyId);
     }
 
     public class DummyTicketRepository : ITicketRepository
@@ -96,13 +97,18 @@ namespace FrodoAPI.TicketRepository
             return journeyGuid;
         }
 
-        public void Persist(Guid bundleId)
+        public void Persist(Guid journeyId)
         {
-            if (_bundles.ContainsKey(bundleId))
+            if (_bundles.ContainsKey(journeyId))
             {
-                var bundle = _bundles[bundleId];
+                var bundle = _bundles[journeyId];
                 bundle.Sold = true;
             }
+        }
+
+        public bool Contains(Guid journeyId)
+        {
+            return _bundles.ContainsKey(journeyId);
         }
     }
 }
