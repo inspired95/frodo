@@ -41,6 +41,8 @@ namespace FrodoAPI.TicketRepository
 
             return new ValidateableTicket
             {
+                From = currentTicket.Stage.From.StopName,
+                To = currentTicket.Stage.To.StopName,
                 TicketId = currentTicket.Id,
                 BarcodeData = currentTicket.Product + currentTicket.Price,
                 StartingTime = currentTicket.Stage.StartingTime
@@ -61,6 +63,8 @@ namespace FrodoAPI.TicketRepository
 
             return new ValidateableTicket
             {
+                From = currentTicket.Stage.From.StopName,
+                To = currentTicket.Stage.To.StopName,
                 TicketId = currentTicket.Id,
                 BarcodeData = currentTicket.Product + currentTicket.Price,
                 StartingTime = currentTicket.Stage.StartingTime
