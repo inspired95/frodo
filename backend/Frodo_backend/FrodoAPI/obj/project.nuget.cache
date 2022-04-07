@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "MxM2MNT6ibyQj0P2rEaxXy2Hj06nHm5+Y1h7dK5CpNZCdCiUUvtpNPvDZ37IMOo6DE0WWOtKeaXIwq+EJXiMpw==",
+  "dgSpecHash": "zo+QDUM5Lff0XIQme9MMWFSYoJ726jE0CubgiRZUCeFKxf8pD7kpJW2NHM6sQ7s8XGN5zDFK7E5h6eBSKoZeyA==",
   "success": true,
   "projectFilePath": "C:\\Build-a-Thon\\inspired95\\frodo\\backend\\Frodo_backend\\FrodoAPI\\FrodoAPI.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\kling\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\kling\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
+    "C:\\Users\\kling\\.nuget\\packages\\qrcoder\\1.4.3\\qrcoder.1.4.3.nupkg.sha512",
+    "C:\\Users\\kling\\.nuget\\packages\\system.drawing.common\\5.0.3\\system.drawing.common.5.0.3.nupkg.sha512",
+    "C:\\Users\\kling\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
+    "C:\\Users\\kling\\.nuget\\packages\\system.text.encoding.codepages\\5.0.0\\system.text.encoding.codepages.5.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

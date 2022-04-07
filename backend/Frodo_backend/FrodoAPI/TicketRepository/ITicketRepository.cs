@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using FrodoAPI.Domain;
 
 namespace FrodoAPI.TicketRepository
 {
     public interface ITicketRepository 
     {
-        ValidateableTicket GetForCurrentStage(in Guid userId, in DateTime currentTime);
-        void Add(Guid ticketRequestUserId, in long journeyGuid, Ticket[]	 results);
+        ValidateableTicket GetForCurrentStage(Guid journeyId, DateTime currentTime);
+        Guid Add(in Guid journeyGuid, Ticket[]	 results);
+
+
+        void Persist(Guid	 bundleId);
     }
 
     public interface ITicketProvider
@@ -29,14 +34,51 @@ namespace FrodoAPI.TicketRepository
 
     public class DummyTicketRepository : ITicketRepository
     {
-        public ValidateableTicket GetForCurrentStage(in Guid userId, in DateTime currentTime)
+        private class TicketBundle
         {
-            throw new NotImplementedException();
+            public bool Sold { get; set; }
+            public Guid JourneyId { get; set; }
+            public Ticket[] Tickets { get; set; }
         }
 
-        public void Add(Guid ticketRequestUserId, in long journeyGuid, Ticket[] results)
+        private readonly Dictionary<Guid, TicketBundle> _bundles = new Dictionary<Guid, TicketBundle>();
+
+        public ValidateableTicket GetForCurrentStage(Guid journeyId, DateTime currentTime)
         {
-            throw new NotImplementedException();
+            var journey = _bundles.Values.FirstOrDefault(b => b.JourneyId == journeyId);
+
+            if (journey == null)
+                return null;
+
+            var currentTicket = journey.Tickets.FirstOrDefault(t => t.Stage.StartingTime < currentTime && currentTime.Subtract(t.Stage.StartingTime) < t.Stage.TravelTime);
+
+            return new ValidateableTicket
+            {
+                BarcodeData = currentTicket.Product + currentTicket.Price
+            };
+        }
+
+        public Guid Add( in Guid journeyGuid, Ticket[] results)
+        {
+            var id = new Guid();
+            
+            _bundles.Add	(id, new TicketBundle
+            {
+                JourneyId = journeyGuid,
+                Sold = false,
+                Tickets = results
+            });
+
+            return id;
+        }
+
+        public void Persist(Guid bundleId)
+        {
+            if (_bundles.ContainsKey(bundleId))
+            {
+                var bundle = _bundles[bundleId];
+                bundle.Sold = true;
+            }
         }
     }
 }

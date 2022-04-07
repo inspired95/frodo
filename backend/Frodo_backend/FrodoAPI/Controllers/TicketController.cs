@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using FrodoAPI.Domain;
 using FrodoAPI.JourneyRepository;
 using FrodoAPI.TicketRepository;
 using FrodoAPI.UserRepository;
 using Microsoft.AspNetCore.Mvc;
+using QRCoder;
 
 namespace FrodoAPI.Controllers
 {
@@ -31,35 +35,71 @@ namespace FrodoAPI.Controllers
             public Guid Journey { get; set; }
         }
 
-        [HttpPost]
-        public Ticket[] GetPossibleTickets(TicketParameters ticketRequest)
+        public class TicketResult
         {
+            public Guid Id { get; set; }
+            public Ticket[] Tickets { get; set; }
+        }
+
+
+        [HttpGet("PossibleTickets")]
+        public TicketResult GetPossibleTickets(Guid userId, Guid journeyId)
+        {
+            var ticketRequest = new TicketParameters
+            {
+                Journey = journeyId,
+                UserId = userId
+            };
             var journey = _journeyRepository.GetJourney(ticketRequest.Journey);
 
             var results = journey.Stages.Select(s => _ticketProvider.GetTicketForStage(s)).ToArray();
 
+            var requestId = _ticketRepository.Add(ticketRequest.Journey, results);
 
-            return results;
+            return new TicketResult
+            {
+                Id = requestId,
+                Tickets = results
+            };
         }
 
-        [HttpPost]
-        public void BuyTickets(Ticket[])
+        [HttpPost("Buy")]
+        public void BuyTickets(Guid bundleId)
         {
-
+            _ticketRepository.Persist(bundleId);
         }
 
 
-        public class CurrentTicketParameters
+        [HttpPost("CurrentTicket")]
+        public ValidateableTicket GetCurrentTicket(Guid journeyId)
         {
-            public Guid UserId { get; set; }
-            public DateTime CurrentTime { get; set; }
+            return _ticketRepository.GetForCurrentStage(journeyId, DateTime.Now);
         }
 
-        [HttpPost]
-        public ValidateableTicket GetCurrentTicket(CurrentTicketParameters currentTicketParameters)
+        [HttpGet("Barcode")]
+        public IActionResult GetBarcode(Guid journeyId)
         {
-            return _ticketRepository.GetForCurrentStage(currentTicketParameters.UserId, currentTicketParameters.CurrentTime);
-        }
+            var ticket = _ticketRepository.GetForCurrentStage(journeyId, DateTime.Now);
+            var qrGenerator = new QRCodeGenerator();
+            var qrCodeInfo = qrGenerator.CreateQrCode(ticket.BarcodeData, QRCodeGenerator.ECCLevel.Q);
+            var qrCode = new QRCode(qrCodeInfo);
+            var qrBitmap = qrCode.GetGraphic(60);
+            byte[] bitmapArray = qrBitmap.BitmapToByteArray();
 
+            return File(bitmapArray, "image/jpeg");
+        }
     }
+
+    public static class BitmapExtension
+    {
+        public static byte[] BitmapToByteArray(this Bitmap bitmap)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bitmap.Save(ms, ImageFormat.Png);
+                return ms.ToArray();
+            }
+        }
+    }
+
 }
