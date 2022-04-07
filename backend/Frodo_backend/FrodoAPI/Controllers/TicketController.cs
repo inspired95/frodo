@@ -21,18 +21,21 @@ namespace FrodoAPI.Controllers
         private readonly ITicketRepository _ticketRepository;
         private readonly IUserRepository _userRepository;
         private readonly IJourneyRepository _journeyRepository;
+        private readonly ITransportCompanyRepo _transportCompanyRepo;
+        private readonly IStationRepository _stationRepository;
 
-        public TicketController(ITicketProvider ticketProvider, ITicketRepository ticketRepository, IUserRepository userRepository, IJourneyRepository journeyRepository)
+        public TicketController(ITicketProvider ticketProvider, ITicketRepository ticketRepository, IUserRepository userRepository, IJourneyRepository journeyRepository, ITransportCompanyRepo transportCompanyRepo, IStationRepository stationRepository)
         {
             _ticketProvider = ticketProvider;
             _ticketRepository = ticketRepository;
             _userRepository = userRepository;
             _journeyRepository = journeyRepository;
+            _transportCompanyRepo = transportCompanyRepo;
+            _stationRepository = stationRepository;
         }
 
         public class TicketParameters
         {
-            public Guid UserId { get; set; }
             public Guid Journey { get; set; }
         }
 
@@ -45,24 +48,25 @@ namespace FrodoAPI.Controllers
         [HttpGet("SetupDemo")]
         public Guid SetupDemoJourney()
         {
+            var allStations = _stationRepository.GetAllStations();
+
             return _journeyRepository.AddJourney(new Journey
             {
                 Stages = new List<JourneyStage>()
                 {
-                    new JourneyStage {From = new GeoPoint(), To = new GeoPoint(), TransportCompanyId = 1},
-                    new JourneyStage {From = new GeoPoint(), To = new GeoPoint(), TransportCompanyId = 2},
+                    new JourneyStage {From = allStations[0], To = allStations[1], TransportCompanyId = _transportCompanyRepo.GetAll().First().Id, StartingTime = DateTime.Now, TravelTime = TimeSpan.FromMinutes(1)},
+                    new JourneyStage {From = allStations[1], To = allStations[2], TransportCompanyId = _transportCompanyRepo.GetAll().Last().Id, StartingTime = DateTime.Now.AddMinutes(1), TravelTime = TimeSpan.FromMinutes(2)},
                 }
             });
         }
 
 
         [HttpGet("PossibleTickets")]
-        public TicketResult GetPossibleTickets(Guid userId, Guid journeyId)
+        public TicketResult GetPossibleTickets(Guid journeyId)
         {
             var ticketRequest = new TicketParameters
             {
                 Journey = journeyId,
-                UserId = userId
             };
             var journey = _journeyRepository.GetJourney(ticketRequest.Journey);
 
@@ -78,9 +82,9 @@ namespace FrodoAPI.Controllers
         }
 
         [HttpGet("Buy")]
-        public void BuyTickets(Guid bundleId)
+        public void BuyTickets(Guid journeyId)
         {
-            _ticketRepository.Persist(bundleId);
+            _ticketRepository.Persist(journeyId);
         }
 
 
@@ -90,10 +94,38 @@ namespace FrodoAPI.Controllers
             return _ticketRepository.GetForCurrentStage(journeyId, DateTime.Now);
         }
 
+        [HttpGet("AllTickets")]
+        public IEnumerable<ValidateableTicket> GetAllTickets(Guid journeyId)
+        {
+            return _ticketRepository.GetAllTickets(journeyId);
+        }
+
         [HttpGet("Barcode")]
-        public IActionResult GetBarcode(Guid journeyId)
+        public IActionResult GetBarcode(Guid journeyId, Guid ticketId)
+        {
+            var ticket = _ticketRepository.Get(journeyId, ticketId);
+
+            if (ticket == null)
+                return null;
+
+            var qrGenerator = new QRCodeGenerator();
+            var qrCodeInfo = qrGenerator.CreateQrCode(ticket.BarcodeData, QRCodeGenerator.ECCLevel.Q);
+            var qrCode = new QRCode(qrCodeInfo);
+            var qrBitmap = qrCode.GetGraphic(60);
+            byte[] bitmapArray = qrBitmap.BitmapToByteArray();
+
+            return File(bitmapArray, "image/jpeg");
+        }
+
+
+        [HttpGet("GetCurrentBarcode")]
+        public IActionResult GetCurrentBarcode(Guid journeyId)
         {
             var ticket = _ticketRepository.GetForCurrentStage(journeyId, DateTime.Now);
+
+            if (ticket == null)
+                return null;
+
             var qrGenerator = new QRCodeGenerator();
             var qrCodeInfo = qrGenerator.CreateQrCode(ticket.BarcodeData, QRCodeGenerator.ECCLevel.Q);
             var qrCode = new QRCode(qrCodeInfo);

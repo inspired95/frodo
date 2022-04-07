@@ -1,5 +1,5 @@
 import 'leaflet/dist/leaflet.css';
-import './App.css'
+import '../App.css'
 import React, { useState } from 'react'
 import {
   MapContainer,
@@ -67,7 +67,7 @@ function JourneyLocationMarker(props) {
   )
 }
 
-class MyMapComponent extends React.Component {
+class MapComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -85,13 +85,12 @@ class MyMapComponent extends React.Component {
     console.log('currentIsStart ' + this.state.currentMarkerIsStart )
     if (this.state.currentMarkerIsStart) {
       this.setState({startMarkerLocation: e})
+      this.props.onStartSelected(e)
     } else {
       this.setState({endMarkerLocation: e})
+      this.props.onEndSelected(e)
     }
     this.setState({currentMarkerIsStart: !this.state.currentMarkerIsStart})
-
-    
-
   }
 
   handleLocationDone() {
@@ -101,7 +100,7 @@ class MyMapComponent extends React.Component {
   render() {
 
     return (
-      <MapContainer center={{ lat: 51.505, lng: -0.09 }} zoom={13} style={{ height: "100vh" }}   id="mapContainer">
+      <MapContainer center={{ lat: 51.505, lng: -0.09 }} zoom={13} style={{ height: "70vh" }}   id="mapContainer">
 
         <LocationMarker onDone={() => this.handleLocationDone()} locationDone={this.state.locationDone}/>
         <JourneyLocationMarker 
@@ -123,12 +122,4 @@ class MyMapComponent extends React.Component {
   }
 }
 
-
-function App() {
-  return (
-
-    <MyMapComponent/>
-  )
-}
-
-export default App;
+export default MapComponent;

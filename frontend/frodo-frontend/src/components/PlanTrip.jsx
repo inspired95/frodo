@@ -4,6 +4,8 @@ import axios from 'axios';
 import PlanTripForm from "./PlanTripForm";
 import TripProposalView from "./TripProposalView";
 
+import MapComponent from './Map';
+
 class PlanTrip extends React.Component {
     constructor(props) {
         super(props);
@@ -15,6 +17,14 @@ class PlanTrip extends React.Component {
         this.validatePlanTripBtn = this.validatePlanTripBtn.bind(this);
         this.sendPlanTripRequest = this.sendPlanTripRequest.bind(this);
         this.updateTripStartPoint = this.updateTripStartPoint.bind(this);
+      }
+
+      handleStartSelected(coords) {
+        this.updateTripStartPoint(coords.lat + ", " + coords.lng)
+      }
+
+      handleEndSelected(coords) {
+        this.updateTripEndPoint(coords.lat + ", " + coords.lng)
       }
 
       updateTripStartPoint = (newTripStartPoint) => {
@@ -184,6 +194,9 @@ class PlanTrip extends React.Component {
                     { this.state.tripsProposal.length !== 0 &&
                         <TripProposalView tripsProposal={this.state.tripsProposal}/>
                     }
+
+                    <MapComponent onStartSelected={(coords) => this.handleStartSelected(coords)}
+                    onEndSelected={(coords) => this.handleEndSelected(coords)}/>
                 </div>
             )
       }

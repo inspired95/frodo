@@ -19,14 +19,14 @@ namespace FrodoAPI.Domain
         public TimeSpan WaitingTime;
         public TimeSpan TravelTime;
   
-        public long TransportCompanyId;
+        public Guid TransportCompanyId;
     }
 
     public class Ticket
     {
         public Guid Id { get; set; }
 
-        public decimal Price { get; set; }
+        public double Price { get; set; }
         public string Product { get; set; }
 
         public JourneyStage Stage { get; set; }
@@ -34,8 +34,9 @@ namespace FrodoAPI.Domain
 
     public class ValidateableTicket
     {
-        public Guid UserId { get; set; }
+        public DateTime StartingTime { get; set; }
         public string BarcodeData { get; set; }
+        public Guid TicketId { get; set; }
     }
 
 }

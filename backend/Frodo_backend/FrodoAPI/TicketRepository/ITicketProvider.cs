@@ -1,5 +1,5 @@
-﻿using System;
-using FrodoAPI.Domain;
+﻿using FrodoAPI.Domain;
+using FrodoAPI.JourneyRepository;
 
 namespace FrodoAPI.TicketRepository
 {
@@ -10,15 +10,21 @@ namespace FrodoAPI.TicketRepository
 
     public class DummyTicketProvider : ITicketProvider
     {
+        private readonly ITransportCompanyRepo _transportCompanyRepo;
+
+        public DummyTicketProvider(ITransportCompanyRepo transportCompanyRepo)
+        {
+            _transportCompanyRepo = transportCompanyRepo;
+        }
+
         public Ticket GetTicketForStage(JourneyStage stage)
         {
-            return new Ticket
-            {
-                Id = Guid.NewGuid(),
-                Price = 10,
-                Product = $"Happy Hour {stage.From} with {stage.TransportCompanyId}",
-                Stage = stage
-            };
+            var transportOrganisation = _transportCompanyRepo.Get(stage.TransportCompanyId);
+            var ticket = transportOrganisation.GetTicket(stage.From, stage.To, "Bruce Willis");
+
+            ticket.Stage = stage;
+
+            return ticket;
         }
     }
 

@@ -43,6 +43,7 @@ namespace FrodoAPI
             services.AddSingleton<ITicketRepository, DummyTicketRepository>();
             services.AddSingleton<IUserRepository, UserRepository.UserRepository>();
             services.AddSingleton<IJourneyRepository, JourneyRepository.JourneyRepository>();
+            services.AddSingleton<ITransportCompanyRepo, TransportCompanyRepo>();
 
         }
 
