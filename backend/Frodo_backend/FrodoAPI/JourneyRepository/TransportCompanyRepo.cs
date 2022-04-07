@@ -37,7 +37,8 @@
                             Product = $"Happy Hour {from.GetName()}",
                             Stage = new JourneyStage
                             {
-                                
+                                From = from,
+                                To = to,
                             }
                         };
 

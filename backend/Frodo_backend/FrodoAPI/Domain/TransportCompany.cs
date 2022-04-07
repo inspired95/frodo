@@ -30,7 +30,11 @@ namespace FrodoAPI.Domain
 
         public Ticket GetTicket(JourneyPoint from, JourneyPoint to, string passenger)
         {
-            return _getTicketFun.Invoke(from, to, passenger);
+            var ticket = _getTicketFun.Invoke(from, to, passenger);
+
+            ticket.Price = _costFun(from, to);
+
+            return ticket;
         }
         public TransportCompany(CanGetFromToFun canGetFromTo, CostFromToFun costFun, GetTicketFun getTicketFun)
         {
