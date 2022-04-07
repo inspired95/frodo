@@ -6,8 +6,8 @@ namespace FrodoAPI.Domain
 {
     public class Journey
     {
-        public long GUID { get; set; }
-        public List<JourneyStage> Stages { get; set; } 
+        long GUID { get; set; }
+        List<JourneyStage> Stages { get; set; } 
     }
 
     public class JourneyStage
