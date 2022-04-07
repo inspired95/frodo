@@ -29,6 +29,7 @@ namespace FrodoAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSingleton<IStationRepository, StationsRepo>();
             services.AddSingleton<ITicketProvider, DummyTicketProvider>();
             services.AddSingleton<ITicketRepository, DummyTicketRepository>();
             services.AddSingleton<IUserRepository, UserRepository.UserRepository>();
