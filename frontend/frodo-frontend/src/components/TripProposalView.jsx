@@ -9,14 +9,16 @@ class TripProposalView extends React.Component {
         }
       }
       render(){
+          
         var tripsProposalCards = this.props.tripsProposal.trips.map(function(tripProposal){
             console.log(tripProposal);
             return <TripProposalCard tripProposal={tripProposal}/>;
           })
 
         return (
-            <div className="">
-                <div class="card-group">
+            <div className="tripsProposalContainer">
+                
+                <div >
                 {tripsProposalCards}
                 </div>
             </div>

@@ -13,7 +13,7 @@ class PlanTripForm extends React.Component {
         axios.get(`http://localhost:5000/api/Stations`)
           .then(res => {
             console.log(res);
-            const tripPoints = res.data.stations;
+            const tripPoints = res.data;
             this.setState({tripPointsList: tripPoints });
           }).catch(function (error){
             console.log(error);
@@ -39,7 +39,7 @@ class PlanTripForm extends React.Component {
 
       render(){
         var namesList = this.state.tripPointsList.map(function(point){
-            return <option key={point} label={point} value={point}/>;
+            return <option key={point.name} label={point.coordinate.longitude + "," + point.coordinate.latitude} value={point.name}/>;
           })
 
         return (

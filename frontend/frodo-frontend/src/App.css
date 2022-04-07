@@ -59,3 +59,31 @@
   margin: 10px;
   margin-top: 15px;
 }
+
+.tripsProposalContainer{
+  margin: 0 auto;
+  justify-content: center;
+  max-width: 30%;
+  max-height: 80%;
+  position: absolute;
+  top:10%;
+  right: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: center;
+  padding: 10px;
+  background-color: rgba(163, 161, 161, 0.667);
+
+  border: 2px rgb(148, 181, 231) solid;
+  border-radius: 5px;
+  box-shadow: 0 0 1em rgb(148, 181, 231);
+}
+
+.tripProposalCard{
+  background-color: rgba(217, 217, 217, 0.667);
+  margin-top: 10px;
+  border: 2px rgb(140, 139, 139) solid;
+}
+
+
+

@@ -14,6 +14,7 @@ class PlanTrip extends React.Component {
         }
         this.validatePlanTripBtn = this.validatePlanTripBtn.bind(this);
         this.sendPlanTripRequest = this.sendPlanTripRequest.bind(this);
+        this.updateTripStartPoint = this.updateTripStartPoint.bind(this);
       }
 
       updateTripStartPoint = (newTripStartPoint) => {
@@ -37,6 +38,25 @@ class PlanTrip extends React.Component {
             element.disabled = false;
           }
       }
+
+      //NOT TO USE
+      localizeMe = (event) => {
+        event.preventDefault();
+        if (navigator.geolocation) {
+            navigator.geolocation.watchPosition(function(position) {
+
+              console.log("Latitude is :", position.coords.latitude);
+              console.log("Longitude is :", position.coords.longitude);
+              var coords = "" + position.coords.latitude+","+ position.coords.longitude;
+              console.log(coords);
+              //updateTripStartPoint(coords);
+            });
+
+          }
+      }
+
+
+
 
       sendPlanTripRequest = async( event ) => {
         event.preventDefault();
@@ -157,20 +177,15 @@ class PlanTrip extends React.Component {
 
 
       render(){
-          if(this.state.tripsProposal.length === 0){
             return (
                 <div className="container-fluid">
                     <PlanTripForm tripStartPoint={this.state.tripStartPoint}  tripEndPoint={this.state.tripEndPoint} updateTripStartPointCallback={this.updateTripStartPoint} updateTripEndPointCallback={this.updateTripEndPoint}/>
                     <button onClick={this.sendPlanTripRequest} id="planTripBtn" >Plan a trip</button>
+                    { this.state.tripsProposal.length !== 0 &&
+                        <TripProposalView tripsProposal={this.state.tripsProposal}/>
+                    }
                 </div>
             )
-          }else{
-            return (
-                <div className="container-fluid">
-                    <TripProposalView tripsProposal={this.state.tripsProposal}/>
-                </div>
-            );
-          }
       }
 }
 
