@@ -1,12 +1,25 @@
 import React from "react";
+import axios from 'axios';
 
 class PlanTripForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tripPointsList: ['Short Street', 'Long Street', 'Park', 'School']
+            tripPointsList: []
         }
       }
+
+      componentDidMount() {
+        axios.get(`http://localhost:5000/api/Stations`)
+          .then(res => {
+            console.log(res);
+            const tripPoints = res.data.stations;
+            this.setState({tripPointsList: tripPoints });
+          }).catch(function (error){
+            console.log(error);
+          })
+      }
+
 
       saveTripStartPoint = (event) => {
         event.preventDefault();

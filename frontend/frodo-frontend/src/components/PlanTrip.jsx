@@ -2,6 +2,7 @@ import React from "react";
 import axios from 'axios';
 
 import PlanTripForm from "./PlanTripForm";
+import TripProposalView from "./TripProposalView";
 
 class PlanTrip extends React.Component {
     constructor(props) {
@@ -12,6 +13,7 @@ class PlanTrip extends React.Component {
             tripsProposal: []
         }
         this.validatePlanTripBtn = this.validatePlanTripBtn.bind(this);
+        this.sendPlanTripRequest = this.sendPlanTripRequest.bind(this);
       }
 
       updateTripStartPoint = (newTripStartPoint) => {
@@ -38,6 +40,7 @@ class PlanTrip extends React.Component {
 
       sendPlanTripRequest = async( event ) => {
         event.preventDefault();
+        console.log("sendPlanTripRequest")
 
         const planTripFormData = new FormData();
         planTripFormData.append("tripStartPoint", this.state.tripStartPoint);
@@ -54,6 +57,100 @@ class PlanTrip extends React.Component {
             });
           } catch(error) {
             console.log(error)
+            var trips = { 
+                GUID : 524242342,
+                "trips" : [
+                  {
+                    "GUID": 1,
+                    "Stages" : [
+                        {
+                            "TransportCompanyId":"TransportCompanyId1",
+                            "From": "PointA",
+                            "To": "PointB",
+                            "StartingTime": "2017-09-08T19:01:55.714942+03:00",
+                            "WaitingTime":"20",
+                            "TravelTime": "21",
+                        },
+                        {
+                            "TransportCompanyId":"TransportCompanyId2",
+                            "From": "PointB",
+                            "To": "PointC",
+                            "StartingTime": "2017-09-08T19:01:55.714942+03:00",
+                            "WaitingTime":"22",
+                            "TravelTime": "23",
+                        },
+                        {
+                            "TransportCompanyId":"TransportCompanyId3",
+                            "From": "PointC",
+                            "To": "PointD",
+                            "StartingTime": "2017-09-08T19:01:55.714942+03:00",
+                            "WaitingTime":"24",
+                            "TravelTime": "25",
+                        }
+                    ],
+                  },
+                  {
+                    "GUID": 2,
+                    "Stages" : [
+                        {
+                            "TransportCompanyId":"TransportCompanyId1",
+                            "From": "PointA",
+                            "To": "PointB",
+                            "StartingTime": "2017-09-08T19:01:55.714942+03:00",
+                            "WaitingTime":"20",
+                            "TravelTime": "21",
+                        },
+                        {
+                            "TransportCompanyId":"TransportCompanyId2",
+                            "From": "PointB",
+                            "To": "PointC",
+                            "StartingTime": "2017-09-08T19:01:55.714942+03:00",
+                            "WaitingTime":"22",
+                            "TravelTime": "23",
+                        },
+                        {
+                            "TransportCompanyId":"TransportCompanyId3",
+                            "From": "PointC",
+                            "To": "PointD",
+                            "StartingTime": "2017-09-08T19:01:55.714942+03:00",
+                            "WaitingTime":"24",
+                            "TravelTime": "25",
+                        }
+                    ],
+                  },
+                  {
+                    "GUID": 1,
+                    "Stages" : [
+                        {
+                            "TransportCompanyId":"TransportCompanyId1",
+                            "From": "PointA",
+                            "To": "PointB",
+                            "StartingTime": "2017-09-08T19:01:55.714942+03:00",
+                            "WaitingTime":"20",
+                            "TravelTime": "21",
+                        },
+                        {
+                            "TransportCompanyId":"TransportCompanyId2",
+                            "From": "PointB",
+                            "To": "PointC",
+                            "StartingTime": "2017-09-08T19:01:55.714942+03:00",
+                            "WaitingTime":"22",
+                            "TravelTime": "23",
+                        },
+                        {
+                            "TransportCompanyId":"TransportCompanyId3",
+                            "From": "PointC",
+                            "To": "PointD",
+                            "StartingTime": "2017-09-08T19:01:55.714942+03:00",
+                            "WaitingTime":"24",
+                            "TravelTime": "25",
+                        }
+                    ],
+                  }
+                ]
+              };
+              console.log(JSON.stringify(trips, null, 2))
+              this.setState({"tripsProposal": trips});
           }
 
       }
@@ -64,13 +161,13 @@ class PlanTrip extends React.Component {
             return (
                 <div className="container-fluid">
                     <PlanTripForm tripStartPoint={this.state.tripStartPoint}  tripEndPoint={this.state.tripEndPoint} updateTripStartPointCallback={this.updateTripStartPoint} updateTripEndPointCallback={this.updateTripEndPoint}/>
-                    <button id="planTripBtn" >Plan a trip</button>
+                    <button onClick={this.sendPlanTripRequest} id="planTripBtn" >Plan a trip</button>
                 </div>
             )
           }else{
             return (
                 <div className="container-fluid">
-
+                    <TripProposalView tripsProposal={this.state.tripsProposal}/>
                 </div>
             );
           }
