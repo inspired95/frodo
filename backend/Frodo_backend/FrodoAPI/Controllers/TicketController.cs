@@ -75,7 +75,17 @@ namespace FrodoAPI.Controllers
         [HttpGet("Buy")]
         public void BuyTickets(Guid journeyId)
         {
-            _ticketRepository.Persist(journeyId);
+            if (_ticketRepository.Contains(journeyId))
+                _ticketRepository.Persist(journeyId);
+            else
+            {
+                var journey = _journeyRepository.GetJourney(journeyId);
+
+                var results = journey.Stages.Select(s => _ticketProvider.GetTicketForStage(s)).ToArray();
+
+                var requestId = _ticketRepository.Add(journeyId, results);
+                _ticketRepository.Persist(requestId);
+            }
         }
 
 

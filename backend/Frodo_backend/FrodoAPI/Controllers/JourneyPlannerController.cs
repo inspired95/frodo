@@ -3,11 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using FrodoAPI.Contract;
 using FrodoAPI.Domain;
 using FrodoAPI.JourneyRepository;
-using Microsoft.VisualBasic;
 
 namespace FrodoAPI.Controllers
 {
