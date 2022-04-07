@@ -6,8 +6,8 @@ namespace FrodoAPI.Domain
 {
     public class Journey
     {
-        long GUID { get; set; }
-        List<JourneyStage> Stages { get; set; } 
+        public long GUID { get; set; }
+        public List<JourneyStage> Stages { get; set; } 
     }
 
     public class JourneyStage
@@ -20,4 +20,21 @@ namespace FrodoAPI.Domain
   
         public long TransportCompanyId;
     }
+
+    public class Ticket
+    {
+        public Guid Id { get; set; }
+
+        public decimal Price { get; set; }
+        public string Product { get; set; }
+
+        public JourneyStage Stage { get; set; }
+    }
+
+    public class ValidateableTicket
+    {
+        public Guid UserId { get; set; }
+        public string BarcodeData { get; set; }
+    }
+
 }

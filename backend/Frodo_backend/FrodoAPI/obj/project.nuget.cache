@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Uzivew6QSoua1DNBWi7TRPx9okPqzq/YVZc3EoxOohCG0CYAjkJkfJKBr+FqpjFIACug8UbYy6N6ewgVrzkmkw==",
+  "dgSpecHash": "MxM2MNT6ibyQj0P2rEaxXy2Hj06nHm5+Y1h7dK5CpNZCdCiUUvtpNPvDZ37IMOo6DE0WWOtKeaXIwq+EJXiMpw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\krzysztof.szeruga\\source\\repos\\frodo\\backend\\Frodo_backend\\FrodoAPI\\FrodoAPI.csproj",
+  "projectFilePath": "C:\\Build-a-Thon\\inspired95\\frodo\\backend\\Frodo_backend\\FrodoAPI\\FrodoAPI.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

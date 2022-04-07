@@ -7,9 +7,9 @@ namespace FrodoAPI.JourneyRepository
 {
     public interface IJourneyRepository
     {
-        public Guid AddJourney(Journey journey);
+        Guid AddJourney(Journey journey);
 
-        public Journey GetJourney(Guid id);
+        Journey GetJourney(Guid id);
     }
 
     class JourneyRepository : IJourneyRepository
