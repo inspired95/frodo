@@ -138,7 +138,7 @@ namespace FrodoAPI.Controllers
             var qrBitmap = qrCode.GetGraphic(size);
             byte[] bitmapArray = qrBitmap.BitmapToByteArray();
 
-            return File(bitmapArray, "image/jpeg");
+            return File(bitmapArray, "image/png");
         }
     }
 
