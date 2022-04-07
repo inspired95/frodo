@@ -53,6 +53,7 @@ class PlanTripForm extends React.Component {
                         placeholder="Select trip start point from a map or select from a list"
                         defaultValue={this.props.tripStartPoint}
                         list='tripPointsList'
+                        onChange={this.saveTripStartPoint}
                     />
                     <datalist id='tripPointsList'>
                         { namesList }

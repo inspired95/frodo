@@ -10,7 +10,7 @@ class TripProposalCard extends React.Component {
       }
 
       render(){
-        var tripsProposalStages = this.props.tripProposal.Stages.map(function(stage){
+        var tripsProposalStages = this.props.tripProposal.stages.map(function(stage){
             console.log(stage);
             return <TripProposalStage stage={stage}/>;
           })
@@ -22,6 +22,7 @@ class TripProposalCard extends React.Component {
                         Trip option
                     </div>
                     {tripsProposalStages}
+
                     <button className="btn btn-primary">Show on a map</button>
                     <button className="btn btn-primary">Buy a ticket</button>
                 </div>

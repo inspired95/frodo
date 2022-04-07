@@ -32,9 +32,12 @@ class PlanTrip extends React.Component {
 
       updateTripStartPoint = (newTripStartPoint) => {
         console.log("updateTripStartPoint: " + newTripStartPoint);
-        this.setState({ tripStartPointName: newTripStartPoint });
-        this.setState({ tripStartPointLatitude: newTripStartPoint });
-        this.setState({ tripStartPointLongitude: newTripStartPoint });
+        var foundPoint = this.state.tripsProposal.filter(function (el) {
+            return el.name === newTripStartPoint;
+          });
+        this.setState({ tripStartPointName: foundPoint.name });
+        this.setState({ tripStartPointLatitude: foundPoint.longitude });
+        this.setState({ tripStartPointLongitude: foundPoint.latitude });
       }
 
       updateTripEndPoint = (newTripEndPoint) => {
@@ -46,7 +49,7 @@ class PlanTrip extends React.Component {
         console.log("sendPlanTripRequest")
         var today = new Date();
 
-        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        var date = "2022-04-07";//today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
         var requestData = JSON.stringify({
             "StartingPoint": {      
                "Longitude" : this.state.tripStartPointLatitude,       
@@ -61,9 +64,10 @@ class PlanTrip extends React.Component {
          console.log(requestData);
 
          try{
-            axios.get(`http://localhost:5000/api/JourneyPlanner`, requestData, {
+            axios.post(`https://localhost:5001/api/JourneyPlanner/`, requestData, {
                 headers: {
                     'Content-Type': 'application/json',
+                    'Access-Control-Max-Age': 600
                 }
             })
             .then(res => {
