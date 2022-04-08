@@ -53,11 +53,11 @@ namespace FrodoAPI.Controllers
                 stop2 = stops.OrderBy(station => station.Coordinate.DistanceTo(request.EndingPoint)).Skip(1+offset).First();
             var rand_speed = 15 + random.Next(10);
             var traveltime1 =
-                TimeSpan.FromHours(request.StartingPoint.DistanceTo(stop1.Coordinate) / rand_speed);
+                TimeSpan.FromHours(request.StartingPoint.DistanceTo(stop1.Coordinate) / rand_speed) + TimeSpan.FromMinutes(3);
             var traveltime2 =
-                TimeSpan.FromHours(stop1.Coordinate.DistanceTo(stop2.Coordinate) / rand_speed);
+                TimeSpan.FromHours(stop1.Coordinate.DistanceTo(stop2.Coordinate) / rand_speed) + TimeSpan.FromMinutes(3);
             var traveltime3 =
-                TimeSpan.FromHours(request.EndingPoint.DistanceTo(stop2.Coordinate) / rand_speed);
+                TimeSpan.FromHours(request.EndingPoint.DistanceTo(stop2.Coordinate) / rand_speed) + TimeSpan.FromMinutes(3);
 
             var transportcompany1 = _transportCompanyRepo.Get(Guid.Parse("BC262847-27DD-45A8-AE6F-F879BD3D48CA"));
             var transportcompany2 = _transportCompanyRepo.Get(Guid.Parse("C33D3567-8BF2-42B4-A4F5-670ECE919429"));
@@ -83,7 +83,7 @@ namespace FrodoAPI.Controllers
                         TransportCompanyId = transportcompany1.Id,
                         To = new JourneyPoint(stop1),
                         TravelTime = traveltime1,
-                        WaitingTime = TimeSpan.FromMinutes(5),
+                        WaitingTime = TimeSpan.FromMinutes(2),
                         Price = transportcompany1.GetTicket(new JourneyPoint() { Coordinates = request.StartingPoint }, new JourneyPoint(stop1), "").Price
 
                     },
@@ -95,7 +95,7 @@ namespace FrodoAPI.Controllers
                         TransportCompanyId = transportcompany2.Id,
                         To = new JourneyPoint(stop2),
                         TravelTime = traveltime2,
-                        WaitingTime = TimeSpan.FromMinutes(5),
+                        WaitingTime = TimeSpan.FromMinutes(2),
                         Price = transportcompany2.GetTicket(new JourneyPoint(stop2) ,new JourneyPoint(stop1),"" ).Price
 
                     },
@@ -106,7 +106,7 @@ namespace FrodoAPI.Controllers
                         TransportCompanyId = transportcompany3.Id,
                         To = new JourneyPoint() {Coordinates = request.EndingPoint},
                         TravelTime = traveltime3,
-                        WaitingTime = TimeSpan.FromMinutes(5),
+                        WaitingTime = TimeSpan.FromMinutes(2),
                         Price = transportcompany3.GetTicket(new JourneyPoint() { Coordinates = request.EndingPoint }, new JourneyPoint(stop2), "").Price
 
 

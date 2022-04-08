@@ -4,6 +4,7 @@ import axios from 'axios';
 class PlanTripForm extends React.Component {
     constructor(props) {
         super(props);
+        
         this.state = {
             tripPointsList: []
         }
@@ -71,7 +72,7 @@ class PlanTripForm extends React.Component {
                         type="text"
                         name="tripStartPoint"
                         placeholder="Select trip start point from a map or select from a list"
-                        defaultValue={this.props.tripStartPoint}
+                        defaultValue={this.props.tripStartPoint.Name}
                         list='tripPointsList'
                         onChange={this.saveTripStartPoint}
                     />
@@ -88,7 +89,7 @@ class PlanTripForm extends React.Component {
                         type="text"
                         name="tripEndPoint"
                         placeholder="Select trip stop point from a map or select from a list"
-                        defaultValue={this.props.tripEndPoint}
+                        defaultValue={this.props.tripEndPoint.Name}
                         list='tripPointsList'
                         onChange={this.saveTripEndPoint}
                     />

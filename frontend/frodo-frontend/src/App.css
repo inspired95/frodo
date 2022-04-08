@@ -90,5 +90,22 @@
   border: 2px rgb(140, 139, 139) solid;
 }
 
+.card-text {
+  font-weight: bold;
+}
+
+button.left {
+  float: left;
+}
+
+button.right {
+  float: right;
+}
+
+button.center {
+  display: block;
+  margin: 0.5em auto;
+}
+
 
 

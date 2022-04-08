@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import Map from './components/Map';
 import PlanTrip from './components/PlanTrip';
+import CurrentTrip from './components/CurrentTrip';
 import Navigation from "./components/Navigation";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
@@ -14,6 +15,7 @@ ReactDOM.render(
     <Routes>
       <Route path="/" element={<Map/>} />
       <Route path="/planTrip" element={<PlanTrip/>} />
+      <Route path="/currentTrip/:tripId" element={<CurrentTrip/>} />
     </Routes>
   </Router>,
   document.getElementById('root')

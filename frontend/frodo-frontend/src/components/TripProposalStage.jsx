@@ -14,29 +14,39 @@ class TripProposalStage extends React.Component {
             <div>
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-muted">Comapany</h6>
-                        <p class="card-text">{this.props.stage.meanOfTransportation}</p>
+                        <p>
+                            <span class="card-subtitle mb-2 text-muted">Comapany: </span>
+                            <span class="card-text">{this.props.stage.meanOfTransportation}</span>
+                        </p>
+                        <p>
+                            <span class="card-subtitle mb-2 text-muted">From: </span>
+                            <span class="card-text">{this.props.stage.from.stopName}</span>
+                            <div class="card-text">{this.props.stage.from.coordinates.latitude + ", " + this.props.stage.from.coordinates.longitude}</div>
+                        </p>
 
-                        <h6 class="card-subtitle mb-2 text-muted">From</h6>
-                        <p class="card-text">{this.props.stage.from.stopName}</p>
-                        <p class="card-text">{this.props.stage.from.coordinates.latitude + ", " + this.props.stage.from.coordinates.longitude}</p>
+                        <p>
+                            <span class="card-subtitle mb-2 text-muted">To: </span>
+                            <span class="card-text">{this.props.stage.to.stopName}</span>
+                            <div class="card-text">{this.props.stage.to.coordinates.latitude + ", " + this.props.stage.to.coordinates.longitude}</div>
+                        </p>
 
-                        <h6 class="card-subtitle mb-2 text-muted">To</h6>
-                        <p class="card-text">{this.props.stage.to.stopName}</p>
-                        <p class="card-text">{this.props.stage.to.coordinates.latitude + ", " + this.props.stage.to.coordinates.longitude}</p>
-
-                        <h6 class="card-subtitle mb-2 text-muted">Starting time</h6>
-                        <p class="card-text">{this.props.stage.startingTime}</p>
+                        <p>
+                        <span class="card-subtitle mb-2 text-muted">Starting time: </span>
+                        <span class="card-text">{this.props.stage.startingTime}</span>
                         
-                        <h6 class="card-subtitle mb-2 text-muted">Waiting time</h6>
-                        <p class="card-text">{this.props.stage.waitingTime.days + "days " + this.props.stage.waitingTime.hours + "hours " + this.props.stage.waitingTime.minutes + "minutes"}</p>
-
-                        <h6 class="card-subtitle mb-2 text-muted">Travel time</h6>
-                        <p class="card-text">{this.props.stage.travelTime.days + "days " + this.props.stage.travelTime.hours + "hours " + this.props.stage.travelTime.minutes + "minutes"}</p>
-                    
-                        <h6 class="card-subtitle mb-2 text-muted">Stage cost</h6>
-                        <p class="card-text">{(Math.round(this.props.stage.price * 100) / 100).toFixed(2) + "$"}</p>
-                   
+                        </p>
+                        <p>
+                        <span class="card-subtitle mb-2 text-muted">Waiting time: </span>
+                        <span class="card-text">{this.props.stage.waitingTime.days + "days " + this.props.stage.waitingTime.hours + "hours " + this.props.stage.waitingTime.minutes + "minutes"}</span>
+                        </p>
+                        <p>
+                        <span class="card-subtitle mb-2 text-muted">Travel time: </span>
+                        <span class="card-text">{this.props.stage.travelTime.days + "days " + this.props.stage.travelTime.hours + "hours " + this.props.stage.travelTime.minutes + "minutes"}</span>
+                    </p>
+                    <p>
+                        <span class="card-subtitle mb-2 text-muted">Stage cost: </span>
+                        <span class="card-text">{(Math.round(this.props.stage.price * 100) / 100).toFixed(2) + "$"}</span>
+                        </p>
                     </div>
                 </div>
             </div>
