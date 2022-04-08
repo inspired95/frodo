@@ -109,7 +109,7 @@ namespace FrodoAPI.Controllers
         [HttpGet("Barcode")]
         public IActionResult GetBarcode(Guid journeyId, Guid ticketId, int size = 10)
         {
-            var ticket = _ticketRepository.Get(journeyId, ticketId);
+            var ticket = ticketId == Guid.Empty ? _ticketRepository.GetForCurrentStage(journeyId, DateTime.Now) : _ticketRepository.Get(journeyId, ticketId);
 
             if (ticket == null)
                 return new EmptyResult();
