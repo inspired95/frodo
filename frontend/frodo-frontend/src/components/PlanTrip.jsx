@@ -78,7 +78,7 @@ class PlanTrip extends React.Component {
         console.log("sendPlanTripRequest")
         var today = new Date();
 
-        var date = "2022-04-07";//today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        var date = "2022-04-08T01:51:17.5027559+02:00";//today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
         var requestData = JSON.stringify({
             "StartingPoint": {      
                "Longitude" : this.state.tripStartPointLatitude,       
