@@ -217,7 +217,7 @@ class PlanTrip extends React.Component {
             return (
                 <div className="container-fluid">
                     <PlanTripForm tripStartPoint={this.state.tripStartPoint}  tripEndPoint={this.state.tripEndPoint} updateTripStartPointCallback={this.updateTripStartPoint} updateTripEndPointCallback={this.updateTripEndPoint}/>
-                    <button onClick={() => this.sendPlanTripRequest(this)} id="planTripBtn" >Plan a trip</button>
+                    <button class="btn btn-primary center" onClick={() => this.sendPlanTripRequest(this)} id="planTripBtn" >Plan a trip</button>
                     { this.state.tripsProposal.length !== 0 &&
                         <TripProposalView tripsProposal={this.state.tripsProposal}/>
                     }
