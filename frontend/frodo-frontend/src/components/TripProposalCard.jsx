@@ -46,8 +46,8 @@ class TripProposalCard extends React.Component {
                     </div>
                     {tripsProposalStages}
 
-                    <button className="btn btn-primary">Show on a map</button>
-                    <button className="btn btn-primary" onClick={() => this.handleBuy(guid)}>Buy a ticket</button>
+                    <button className="btn btn-primary left">Show on a map</button>
+                    <button className="btn btn-primary right" onClick={() => this.handleBuy(guid)}>Buy a ticket</button>
                 </div>
             </div>
           )

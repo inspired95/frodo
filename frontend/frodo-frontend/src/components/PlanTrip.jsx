@@ -10,12 +10,16 @@ class PlanTrip extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tripStartPointName: "",
-            tripStartPointLatitude: 0,
-            tripStartPointLongitude: 0,
-            tripEndPointName: "",
-            tripEndPointLatitude: 0,
-            tripEndPointLongitude: 0,
+            tripStartPoint: {
+              Name: "",
+              Latitude: 0,
+              Longitude: 0
+            },
+            tripEndPoint: {
+              Name: "",
+              Latitude: 0,
+              Longitude: 0
+            },
             tripsProposal: []
         }
         this.sendPlanTripRequest = this.sendPlanTripRequest.bind(this);
@@ -43,50 +47,55 @@ class PlanTrip extends React.Component {
     }
 
       handleStartSelected(coords) {
-        this.updateTripStartPoint(coords.lat + ", " + coords.lng)
+        this.updateTripStartPoint(coords.lat + ", " + coords.lng, coords.lat, coords.lng)
         const ref = this;
         this.reverseGeolocation(coords).then(  data => {
-          ref.updateTripStartPoint(this.addressToString(data))
+          ref.updateTripStartPoint(this.addressToString(data), coords.lat, coords.lng)
       })
       }
 
       handleEndSelected(coords) {
-        this.updateTripEndPoint(coords.lat + ", " + coords.lng)
+        this.updateTripEndPoint(coords.lat + ", " + coords.lng, coords.lat, coords.lng)
         const ref = this;
         this.reverseGeolocation(coords).then(  data => {
-          ref.updateTripEndPoint(this.addressToString(data))
+          ref.updateTripEndPoint(this.addressToString(data), coords.lat, coords.lng)
       })
       }
 
       updateTripStartPoint = (name, latitude, longitude) => {
         console.log("updateTripStartPoint: " + name + ", " + latitude + ", " + longitude);
-
-        this.setState({ tripStartPointName: name });
-        this.setState({ tripStartPointLatitude: longitude });
-        this.setState({ tripStartPointLongitude: latitude });
+        const tripStartPoint = {
+          Name: name,
+          Latitude: latitude,
+          Longitude: longitude
+        }
+        this.setState({ tripStartPoint: tripStartPoint });
       }
 
       updateTripEndPoint = (name, latitude, longitude) => {
         console.log("updateTripEndPoint: " + name + ", " + latitude + ", " + longitude);
 
-        this.setState({ tripEndPointName: name });
-        this.setState({ tripEndPointLatitude: longitude });
-        this.setState({ tripEndPointLongitude: latitude });
+        const tripEndPoint = {
+          Name: name,
+          Latitude: latitude,
+          Longitude: longitude
+        }
+        this.setState({ tripEndPoint: tripEndPoint });
       }
 
       sendPlanTripRequest = async(ref) => {
         console.log("sendPlanTripRequest")
         var today = new Date();
 
-        var date = "2022-04-07";//today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        var date = "2022-04-09";//today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
         var requestData = JSON.stringify({
             "StartingPoint": {      
-               "Longitude" : this.state.tripStartPointLatitude,       
-               "Latitude" : this.state.tripStartPointLongitude      
+               "Longitude" : this.state.tripStartPoint.Longitude,       
+               "Latitude" : this.state.tripStartPoint.Latitude      
             },      
             "EndingPoint" : {  
-               "Longitude" : this.state.tripEndPointLatitude,   
-               "Latitude" : this.state.tripEndPointLongitude    
+               "Longitude" : this.state.tripEndPoint.Longitude,   
+               "Latitude" : this.state.tripEndPoint.Latitude    
             },     
             "StartingDate" : date
          });
