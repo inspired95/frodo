@@ -1,17 +1,12 @@
 import React from "react";
 import axios from 'axios';
 import TripProposalStage from "./TripProposalStage";
+import { useNavigate } from 'react-router-dom';
 
 
-class TripProposalCard extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
+function TripProposalCard(props) {
 
-        }
-      }
-
-      handleBuy(guid) {
+      const handleBuy = (guid) => {
         console.log("attempt to buy a ticket for guid: " + guid)
         try{
           
@@ -23,6 +18,13 @@ class TripProposalCard extends React.Component {
           .then(res => {
               console.log("buy a ticket successfull! ")
               // TODO show message
+              
+
+              redirectToTrip(guid);
+              //this.props.history.push('/currentTrip/' + guid);
+
+              //browserHistory.push('/currentTrip/' + guid)
+
           }).catch(function (error){
             console.error(error);
           })
@@ -31,12 +33,19 @@ class TripProposalCard extends React.Component {
        }
       }
 
-      render(){
-        const guid = this.props.tripProposal.guid
-        var tripsProposalStages = this.props.tripProposal.stages.map(function(stage){
+      const navigate = useNavigate();
+
+      function redirectToTrip(guid) {
+        navigate('/currentTrip/' + guid);
+      }
+
+      const guid = props.tripProposal.guid
+        var tripsProposalStages = props.tripProposal.stages.map(function(stage){
             console.log(stage);
             return <TripProposalStage stage={stage}/>;
           })
+
+    
 
           return(
             <div>
@@ -51,7 +60,7 @@ class TripProposalCard extends React.Component {
                 </div>
             </div>
           )
-      }
+      
 }
 
 

@@ -107,7 +107,7 @@ namespace FrodoAPI.Controllers
         }
 
         [HttpGet("Barcode")]
-        public IActionResult GetBarcode(Guid journeyId, Guid ticketId)
+        public IActionResult GetBarcode(Guid journeyId, Guid ticketId, int size = 10)
         {
             var ticket = _ticketRepository.Get(journeyId, ticketId);
 
@@ -117,7 +117,7 @@ namespace FrodoAPI.Controllers
             var qrGenerator = new QRCodeGenerator();
             var qrCodeInfo = qrGenerator.CreateQrCode(ticket.BarcodeData, QRCodeGenerator.ECCLevel.Q);
             var qrCode = new QRCode(qrCodeInfo);
-            var qrBitmap = qrCode.GetGraphic(60);
+            var qrBitmap = qrCode.GetGraphic(size);
             byte[] bitmapArray = qrBitmap.BitmapToByteArray();
 
             return File(bitmapArray, "image/png");
